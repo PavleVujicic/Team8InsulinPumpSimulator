@@ -5,13 +5,58 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , profileGroup(new QButtonGroup(this))
+    , series(new QLineSeries(this))
+    , chart(new QChart())
+    , axisX(new QValueAxis())
+    , axisY(new QValueAxis())
 {
     ui->setupUi(this);
+    user = new User();
+
+    updateTimer = new QTimer(this);
+    connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
+    updateTimer->start(1000);
 
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
+
+
+
+
+    // Customize the pen for the series
+    QPen pen(Qt::white, 2);
+    pen.setStyle(Qt::DotLine); // Make the line dotted
+    series->setPen(pen);
+
+    chart->addSeries(series);
+    chart->setTheme(QChart::ChartThemeDark);
+
+
+
+
+    axisX->setRange(0, 30); // Adjust according to your needs
+    axisY->setRange(2, 22); // Explicit range to include your tick points
+    axisY->setTickCount(6);  // Sets the number of ticks to be exactly 6
+    axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
+    chart->setAxisX(axisX, series);
+    chart->setAxisY(axisY, series);
+
+
+    // Initialize the chart view
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+
+
+    // Ensure the chartContainer has a layout
+    if (ui->chartContainer->layout() == nullptr) {
+        QVBoxLayout *layout = new QVBoxLayout();
+        ui->chartContainer->setLayout(layout);
+    }
+    ui->chartContainer->layout()->addWidget(chartView);
+
 }
 
 MainWindow::~MainWindow()
@@ -168,6 +213,22 @@ void MainWindow::updateSelectedProfile() {
     QMessageBox::information(this, "Update Profile", "Profile updated successfully!");
 
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::updateChartData() {
+    user->simulateGlucose(); // Simulate data change
+    QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
+
+    // Add new data to the series
+    series->append(dataCount++, glucoseHistory.last());
+
+    // Keep only the latest 30 data points, scroll X-axis
+    if (dataCount > 30) {
+        series->remove(0);
+        axisX->setMin(axisX->min() + 1);
+        axisX->setMax(axisX->max() + 1);
+    }
 }
 
 
