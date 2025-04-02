@@ -1,7 +1,3 @@
-//
-// Created by akil on 3/29/25.
-//
-
 #ifndef USER_H
 #define USER_H
 
@@ -10,7 +6,7 @@
 #include <QDateTime>
 
 
-class ProfileManager;
+#include "profilemanager.h"
 
 class User {
 public:

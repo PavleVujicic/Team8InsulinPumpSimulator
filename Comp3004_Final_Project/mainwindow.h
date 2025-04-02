@@ -14,7 +14,7 @@
 
 
 #include "profilemanager.h"
-#include "User.h"
+#include "user.h"
 #include "device.h"
 
 // QT_CHARTS_USE_NAMESPACE

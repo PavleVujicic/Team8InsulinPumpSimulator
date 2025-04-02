@@ -1,9 +1,11 @@
 #include "device.h"
+#include <iostream>
 
 #include <QApplication>
 #include <QMessageBox>
 
-Device::Device() {
+
+Device::Device(){
     // CAN CHANGE
     batteryConsumptionRate = 0.125f;    // default: 0.125 (~13 minute lifetime)
     insulinOnBoard = 200.0f;            // default: 200
@@ -109,4 +111,11 @@ void Device::cancel()
 {
     insulinOnBoard += bolusBuffer;
     bolusBuffer = 0;
+}
+
+void Device::setUser(User *u){user = u;}
+
+void Device::setSelectedProfile(Profile* p){
+    std::cout << "Current Profile: " << p->name << std::endl;
+    selectedProfile = p;
 }

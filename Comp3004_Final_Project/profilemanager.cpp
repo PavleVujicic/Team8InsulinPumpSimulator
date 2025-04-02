@@ -1,6 +1,8 @@
 #include "profilemanager.h"
 #include <iostream>
 
+ProfileManager::ProfileManager(){}
+
 void ProfileManager::createProfile(const std::string& name, double basal, double carb, double correction, int pin) {
     profiles.push_back(Profile(name, basal, carb, correction, pin));
 }

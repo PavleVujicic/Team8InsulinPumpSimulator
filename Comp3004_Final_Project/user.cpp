@@ -1,14 +1,10 @@
-//
-// Created by akil on 3/31/25.
-//
-
-
-#include "User.h"
+#include "user.h"
 #include <QtMath>
 #include <QRandomGenerator>
 
 User::User()
-    : currentGlucose(6.0f),  // Normal level to start
+    : profileManager(new ProfileManager()),
+      currentGlucose(6.0f),  // Normal level to start
       insulinSensitivity(0.8f),
       carbImpactFactor(0.1f),
       lastUpdated(QDateTime::currentDateTime()) {

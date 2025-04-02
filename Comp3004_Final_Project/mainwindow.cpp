@@ -9,9 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
     , chart(new QChart())
     , axisX(new QValueAxis())
     , axisY(new QValueAxis())
+    , device(Device())
 {
     ui->setupUi(this);
     user = new User();
+    device.setUser(user);
 
     updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::update);
@@ -89,6 +91,20 @@ void MainWindow::update()
 
 void MainWindow::on_Start_clicked()
 {
+    QRadioButton* selectedButton = qobject_cast<QRadioButton*>(profileGroup->checkedButton());
+    if (!selectedButton) {
+        QMessageBox::warning(this, "Failed to start", "No profile selected.");
+        return;
+    }
+    QString profileName = selectedButton->text();
+
+    Profile* profile = user->getProfileManager()->getProfile(profileName.toStdString());
+    if (!profile) {
+        QMessageBox::warning(this, "Failed to start", "Profile not found.");
+        return;
+    }
+
+    device.setSelectedProfile(profile);
     update();
     updateTimer->start(1000);
     ui->stackedWidget->setCurrentIndex(3);
@@ -112,7 +128,8 @@ void MainWindow::on_updateProfile_clicked()
     QString profileName = selectedButton->text();
 
     // Fetch the profile from ProfileManager
-    Profile* profile = profileManager.getProfile(profileName.toStdString());
+    Profile* profile = user->getProfileManager()->getProfile(profileName.toStdString());
+//    Profile* profile = profileManager.getProfile(profileName.toStdString());
     if (!profile) {
         QMessageBox::warning(this, "Update Profile", "Profile not found.");
         return;
@@ -141,8 +158,10 @@ void MainWindow::createNewProfile() {
         }
 
         // Create profile and store it in memory
-        profileManager.createProfile(name.toStdString(), basalRate, carbRatio, correctionFactor, pin);
-        profileManager.listProfiles();
+        user->getProfileManager()->createProfile(name.toStdString(), basalRate, carbRatio, correctionFactor, pin);
+        user->getProfileManager()->listProfiles();
+//        profileManager.createProfile(name.toStdString(), basalRate, carbRatio, correctionFactor, pin);
+//        profileManager.listProfiles();
 
         QMessageBox::information(this, "Profile Created", "Profile successfully added!");
 
@@ -180,7 +199,7 @@ void MainWindow::deleteSelectedProfile() {
     QString profileName = selectedButton->text();
 
     // Remove profile from ProfileManager
-    if (!profileManager.deleteProfile(profileName.toStdString())) {
+    if (!user->getProfileManager()->deleteProfile(profileName.toStdString())) {
         QMessageBox::warning(this, "Delete Profile", "Failed to delete profile.");
         return;
     }
@@ -204,7 +223,8 @@ void MainWindow::updateSelectedProfile() {
     QString oldProfileName = selectedButton->text();
 
     // Fetch the profile from ProfileManager
-    Profile* profile = profileManager.getProfile(oldProfileName.toStdString());
+    Profile* profile = user->getProfileManager()->getProfile(oldProfileName.toStdString());
+//    Profile* profile = profileManager.getProfile(oldProfileName.toStdString());
     if (!profile) {
         QMessageBox::warning(this, "Update Profile", "Profile not found.");
         return;
@@ -223,12 +243,12 @@ void MainWindow::updateSelectedProfile() {
     }
 
     // Update the profile in ProfileManager
-    if (!profileManager.updateProfile(oldProfileName.toStdString(), basalRate, carbRatio, correctionFactor, pin, newName.toStdString())) {
+    if (!user->getProfileManager()->updateProfile(oldProfileName.toStdString(), basalRate, carbRatio, correctionFactor, pin, newName.toStdString())) {
         QMessageBox::warning(this, "Update Profile", "Failed to update profile.");
         return;
     }
 
-    profileManager.listProfiles();
+    user->getProfileManager()->listProfiles();
 
     // Update the radio button text
     if (oldProfileName != newName) {

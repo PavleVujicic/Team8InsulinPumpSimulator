@@ -21,6 +21,7 @@ private:
     std::vector<Profile> profiles;
 
 public:
+    ProfileManager();
     void createProfile(const std::string& name, double basal, double carb, double correction, int pin);
     std::vector<std::string> getProfileNames() const;
     Profile* getProfile(const std::string& name);

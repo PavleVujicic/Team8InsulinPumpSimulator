@@ -1,6 +1,9 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "user.h"
+#include "profilemanager.h"
+
 class Device {
 public:
     Device();
@@ -46,7 +49,14 @@ public:
     inline float getBatteryPercent() const { return batteryPercent; }
     inline float getBolusBuffer() const { return bolusBuffer; }
     inline float isBolusBufferClear() const { return bolusBuffer == 0; }
+
+    void setUser(User*);
+    void setSelectedProfile(Profile*);
+
 private:
+    User* user;
+    Profile* selectedProfile;
+
     bool batteryWarned = false;
     int insulinWarn;
     int warnInterval;
@@ -57,6 +67,8 @@ private:
     float batteryPercent;
     float bolusBuffer;
     float bolusTransferRate;
+
+    float basalRate;
 };
 
 #endif // DEVICE_H
