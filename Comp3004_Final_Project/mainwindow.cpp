@@ -9,9 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
     , chart(new QChart())
     , axisX(new QValueAxis())
     , axisY(new QValueAxis())
+    , constantLine3_9(new QLineSeries(this))
+    , constantLine10(new QLineSeries(this))
 {
     ui->setupUi(this);
     user = new User();
+    lastGlucose = user->getCurrentGlucoseLevel();
+    setArrowRight(); // Set the initial arrow direction to right
 
     updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
@@ -33,15 +37,40 @@ MainWindow::MainWindow(QWidget *parent)
     chart->addSeries(series);
     chart->setTheme(QChart::ChartThemeDark);
 
+    // Setting up the constant lines with explicit axis attachment
+    QPen linePen3_9(Qt::red, 2, Qt::SolidLine);
+    constantLine3_9->setPen(linePen3_9);
+    constantLine3_9->append(0, 3.9);
+    constantLine3_9->append(30, 3.9);
+    chart->addSeries(constantLine3_9);
+    constantLine3_9->attachAxis(axisX);
+    constantLine3_9->attachAxis(axisY);
+
+    QPen linePen10(Qt::yellow, 2, Qt::SolidLine);
+    constantLine10->setPen(linePen10);
+    constantLine10->append(0, 10);
+    constantLine10->append(30, 10);
+    chart->addSeries(constantLine10);
+    constantLine10->attachAxis(axisX);
+    constantLine10->attachAxis(axisY);
 
 
 
     axisX->setRange(0, 30); // Adjust according to your needs
+    axisX->setLabelsVisible(false);
     axisY->setRange(2, 22); // Explicit range to include your tick points
     axisY->setTickCount(6);  // Sets the number of ticks to be exactly 6
     axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
+
+    axisY->setMinorGridLineVisible(false);
+
     chart->setAxisX(axisX, series);
     chart->setAxisY(axisY, series);
+
+    chart->setAxisX(axisX, constantLine3_9);
+    chart->setAxisY(axisY, constantLine3_9);
+    chart->setAxisX(axisX, constantLine10);
+    chart->setAxisY(axisY, constantLine10);
 
 
     // Initialize the chart view
@@ -220,8 +249,14 @@ void MainWindow::updateChartData() {
     user->simulateGlucose(); // Simulate data change
     QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
 
+    // Update the Glucose_tracker label with the new value
+    float currentGlucose = user->getCurrentGlucoseLevel(); // Assumes such a getter exists
+    ui->Glucose_tracker->setText(QString::number(currentGlucose, 'f', 1));
+
     // Add new data to the series
     series->append(dataCount++, glucoseHistory.last());
+
+    updateDirection();
 
     // Keep only the latest 30 data points, scroll X-axis
     if (dataCount > 30) {
@@ -229,6 +264,52 @@ void MainWindow::updateChartData() {
         axisX->setMin(axisX->min() + 1);
         axisX->setMax(axisX->max() + 1);
     }
+
+
+    // Ensure the constant lines span the full range of the updated axis
+    constantLine3_9->clear();
+    constantLine3_9->append(axisX->min(), 3.9);
+    constantLine3_9->append(axisX->max(), 3.9);
+
+    constantLine10->clear();
+    constantLine10->append(axisX->min(), 10);
+    constantLine10->append(axisX->max(), 10);
 }
+
+void MainWindow::setArrowRight() {
+    QLabel* arrowLabel = findChild<QLabel*>("ARROW");
+    if (arrowLabel) {
+        arrowLabel->setText("➔"); // Unicode for right arrow
+    }
+}
+
+void MainWindow::setArrowUp() {
+    QLabel* arrowLabel = findChild<QLabel*>("ARROW");
+    if (arrowLabel) {
+        arrowLabel->setText("↑"); // Unicode for up arrow
+    }
+}
+
+void MainWindow::setArrowDown() {
+    QLabel* arrowLabel = findChild<QLabel*>("ARROW");
+    if (arrowLabel) {
+        arrowLabel->setText("↘"); // Unicode for down arrow
+    }
+}
+
+//Temporary condition will be changed to make work properly
+void MainWindow::updateDirection() {
+    float currentGlucose = user->getCurrentGlucoseLevel();
+    if (currentGlucose > lastGlucose) {
+        setArrowUp();
+    } else if (currentGlucose < lastGlucose) {
+        setArrowDown();
+    } else {
+        setArrowRight();
+    }
+    lastGlucose = currentGlucose;
+}
+
+
 
 

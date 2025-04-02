@@ -80,8 +80,11 @@ public:
     QTimeEdit *timeEdit;
     QDateEdit *dateEdit;
     QFrame *frame;
-    QLabel *label_6;
+    QLabel *Glucose_tracker;
     QLabel *label_11;
+    QLabel *ARROW;
+    QLabel *label_12;
+    QLabel *label_13;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -245,7 +248,7 @@ public:
         progressBar = new QProgressBar(page4);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setGeometry(QRect(660, 20, 118, 23));
-        progressBar->setValue(100);
+        progressBar->setValue(80);
         label_10 = new QLabel(page4);
         label_10->setObjectName(QString::fromUtf8("label_10"));
         label_10->setGeometry(QRect(20, 390, 141, 16));
@@ -257,20 +260,32 @@ public:
         dateEdit->setGeometry(QRect(360, 10, 110, 22));
         frame = new QFrame(page4);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(620, 219, 151, 161));
+        frame->setGeometry(QRect(610, 110, 151, 181));
         frame->setFrameShape(QFrame::Shape::StyledPanel);
         frame->setFrameShadow(QFrame::Shadow::Raised);
-        label_6 = new QLabel(frame);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(60, 10, 31, 61));
+        Glucose_tracker = new QLabel(frame);
+        Glucose_tracker->setObjectName(QString::fromUtf8("Glucose_tracker"));
+        Glucose_tracker->setGeometry(QRect(50, 10, 61, 61));
         QFont font2;
         font2.setPointSize(30);
-        label_6->setFont(font2);
-        label_6->setTextFormat(Qt::TextFormat::RichText);
+        Glucose_tracker->setFont(font2);
+        Glucose_tracker->setTextFormat(Qt::TextFormat::RichText);
         label_11 = new QLabel(frame);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(40, 70, 58, 41));
+        label_11->setGeometry(QRect(20, 70, 121, 41));
         label_11->setFont(font2);
+        ARROW = new QLabel(frame);
+        ARROW->setObjectName(QString::fromUtf8("ARROW"));
+        ARROW->setGeometry(QRect(50, 120, 121, 51));
+        QFont font3;
+        font3.setPointSize(33);
+        ARROW->setFont(font3);
+        label_12 = new QLabel(page4);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setGeometry(QRect(200, 390, 58, 16));
+        label_13 = new QLabel(page4);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setGeometry(QRect(700, 40, 58, 16));
         stackedWidget->addWidget(page4);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -316,8 +331,11 @@ public:
         toolButton_2->setText(QCoreApplication::translate("MainWindow", "BOLUS", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "PUMP STATUS: B", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "INSULIN ON BOARD", nullptr));
-        label_6->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
-        label_11->setText(QCoreApplication::translate("MainWindow", "HRS", nullptr));
+        Glucose_tracker->setText(QCoreApplication::translate("MainWindow", "0.0", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "mmol/L", nullptr));
+        ARROW->setText(QCoreApplication::translate("MainWindow", "ARROW", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "1.1 u", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "235 u", nullptr));
     } // retranslateUi
 
 };

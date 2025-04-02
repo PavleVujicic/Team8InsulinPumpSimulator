@@ -42,6 +42,10 @@ private slots:
     void on_Start_clicked();
 
     void updateChartData();
+    void setArrowDown();
+    void setArrowUp();
+    void setArrowRight();
+    void updateDirection();
 
 private:
     Ui::MainWindow *ui;
@@ -55,5 +59,9 @@ private:
     QValueAxis *axisX;
     QValueAxis *axisY;
     int dataCount = 0;
+
+    QLineSeries *constantLine3_9;
+    QLineSeries *constantLine10;
+    float lastGlucose;
 };
 #endif // MAINWINDOW_H

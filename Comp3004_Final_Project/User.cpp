@@ -72,3 +72,8 @@ void User::setDecrease(){
     if(increase){increase = false;}
     decrease = true;
 }
+
+float User::getCurrentGlucoseLevel() const {
+    return currentGlucose;
+}
+
