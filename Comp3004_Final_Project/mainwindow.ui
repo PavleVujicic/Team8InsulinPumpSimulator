@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="Page1">
      <widget class="QPushButton" name="createProfile">
@@ -751,7 +751,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>240</y>
+        <y>260</y>
         <width>221</width>
         <height>101</height>
        </rect>
@@ -771,8 +771,8 @@
      <widget class="QLineEdit" name="txtGlucoseAmount">
       <property name="geometry">
        <rect>
-        <x>480</x>
-        <y>230</y>
+        <x>360</x>
+        <y>260</y>
         <width>221</width>
         <height>101</height>
        </rect>
@@ -821,12 +821,12 @@
        <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="txtBolusAmount">
+     <widget class="QLineEdit" name="txtBolusInstant">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>40</y>
-        <width>291</width>
+        <x>150</x>
+        <y>60</y>
+        <width>121</width>
         <height>71</height>
        </rect>
       </property>
@@ -846,22 +846,22 @@
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>20</y>
+        <x>150</x>
+        <y>40</y>
         <width>131</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>Bolus Amount:</string>
+       <string>Instant Dose:</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>110</y>
-        <width>291</width>
+        <x>150</x>
+        <y>130</y>
+        <width>121</width>
         <height>20</height>
        </rect>
       </property>
@@ -875,8 +875,8 @@
      <widget class="QPushButton" name="btnScanGlucose">
       <property name="geometry">
        <rect>
-        <x>480</x>
-        <y>330</y>
+        <x>360</x>
+        <y>360</y>
         <width>221</width>
         <height>29</height>
        </rect>
@@ -888,8 +888,8 @@
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>480</x>
-        <y>210</y>
+        <x>360</x>
+        <y>240</y>
         <width>221</width>
         <height>20</height>
        </rect>
@@ -902,7 +902,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>180</y>
+        <y>200</y>
         <width>141</width>
         <height>26</height>
        </rect>
@@ -918,7 +918,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>210</y>
+        <y>230</y>
         <width>151</width>
         <height>26</height>
        </rect>
@@ -938,6 +938,198 @@
       </property>
       <property name="text">
        <string>Calculate</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>150</y>
+        <width>711</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>40</y>
+        <width>131</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Longterm Dose:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtBolusLongterm">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>60</y>
+        <width>121</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Enter Value</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>130</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Units</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>40</y>
+        <width>131</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delivery Rate:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtBolusRate">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>60</y>
+        <width>121</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Enter Value</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>130</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Units/second</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radDeliveryNoraml">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>210</y>
+        <width>112</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Normal</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">group2</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="radDeliveryExtended">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>240</y>
+        <width>112</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extended</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">group2</string>
+      </attribute>
+     </widget>
+     <widget class="QRadioButton" name="radDeliveryRapid">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>270</y>
+        <width>112</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rapid</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">group2</string>
+      </attribute>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>170</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Calculate Dose</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>10</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Enter Dose</string>
       </property>
      </widget>
     </widget>
@@ -965,4 +1157,7 @@
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="group2"/>
+ </buttongroups>
 </ui>

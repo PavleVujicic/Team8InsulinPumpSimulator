@@ -264,7 +264,14 @@ void MainWindow::onBolusClicked() {
 }
 
 void MainWindow::onBolusCancel() {
+    // Go back
     ui->stackedWidget->setCurrentWidget(ui->page4);
+    // Clear
+    ui->txtBolusInstant->setText("");
+    ui->txtBolusLongterm->setText("");
+    ui->txtBolusRate->setText("");
+    ui->txtInsulinAmount->setText("");
+    ui->txtGlucoseAmount->setText("");
 }
 
 void MainWindow::onBolusCalculate() {
@@ -282,7 +289,36 @@ void MainWindow::onBolusCalculate() {
 }
 
 void MainWindow::onBolusStart() {
-    // TODO: implement
+
+    QMessageBox startBox;
+    startBox.setText("Start insulin?");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
+
+    case QMessageBox::Ok:
+        break;
+
+    default:
+        // should not be reached
+        break;
+    }
+
+    float initial = ui->txtBolusInstant->text().toFloat();
+    float longterm = ui->txtBolusLongterm->text().toFloat();
+    float rate = ui->txtBolusRate->text().toFloat();
+    bool started = device.startBolusPlan(initial, longterm, rate);
+
+    if (!started) {
+        QMessageBox::warning(this, "Error!", "Not enough insulin on board! Please add more.");
+    }
+
+    // Do start stuff
+
+    // Clear and return to home
+    onBolusCancel();
 }
 
 void MainWindow::onBolusScan() {

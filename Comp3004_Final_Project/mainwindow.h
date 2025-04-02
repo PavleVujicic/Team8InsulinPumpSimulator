@@ -55,6 +55,7 @@ private slots:
     void onCtrlB();
 
 private:
+
     Ui::MainWindow *ui;
     ProfileManager profileManager;
     QButtonGroup* profileGroup;

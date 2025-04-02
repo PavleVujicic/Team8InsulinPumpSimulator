@@ -37,6 +37,7 @@ public:
      */
     void tick();
 
+    void checkInsulinLevel();
 
     void cancel();
 
@@ -47,6 +48,10 @@ public:
     inline float isBolusBufferClear() const { return bolusBuffer == 0; }
 private:
     bool batteryWarned = false;
+    int insulinWarn;
+    int warnInterval;
+
+    float insulinLowThreshhold;
     float insulinOnBoard;
     float batteryConsumptionRate;
     float batteryPercent;
