@@ -15,6 +15,7 @@
 
 #include "profilemanager.h"
 #include "User.h"
+#include "device.h"
 
 // QT_CHARTS_USE_NAMESPACE
 
@@ -31,6 +32,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void update();
+
     void on_createProfile_clicked();
     void createNewProfile();
     void addProfileToUI(const QString& name);
@@ -47,14 +50,20 @@ private slots:
     void onBolusCalculate();
     void onBolusStart();
     void onBolusScan();
+    void onBolusStop();
+
+    void onCtrlB();
+
 private:
     Ui::MainWindow *ui;
     ProfileManager profileManager;
     QButtonGroup* profileGroup;
+    User *user;
+    Device device;
+
     QChartView *chartView;  // Add this line for chart view
     QChart *chart;          // Chart object
     QLineSeries *series;    // Series object for the chart
-    User *user;
     QTimer *updateTimer;
     QValueAxis *axisX;
     QValueAxis *axisY;

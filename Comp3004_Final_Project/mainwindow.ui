@@ -512,7 +512,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>30</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -542,7 +542,7 @@
        <rect>
         <x>220</x>
         <y>410</y>
-        <width>191</width>
+        <width>241</width>
         <height>41</height>
        </rect>
       </property>
@@ -586,7 +586,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>INSULIN ON BOARD</string>
+       <string>INSULIN ON BOARD:</string>
       </property>
      </widget>
      <widget class="QTimeEdit" name="timeEdit">
@@ -663,6 +663,87 @@
         <string>HRS</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QProgressBar" name="barBattery">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>0</y>
+        <width>118</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>63</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Battery:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>450</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remaining:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnStopBolus">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>402</x>
+        <y>450</y>
+        <width>61</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblRemainingBolus">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>450</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblRemainingOnboard">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>390</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="PageBolus">

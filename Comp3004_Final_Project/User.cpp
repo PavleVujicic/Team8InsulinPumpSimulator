@@ -11,7 +11,9 @@ User::User()
     : currentGlucose(6.0f),  // Normal level to start
       insulinSensitivity(0.8f),
       carbImpactFactor(0.1f),
-      lastUpdated(QDateTime::currentDateTime()) {}
+      lastUpdated(QDateTime::currentDateTime()) {
+    for (int i = 0; i < 30; i++) glucoseHistory.append(currentGlucose); // generate starting values
+}
 
 void User::simulateGlucose() {
     float change;

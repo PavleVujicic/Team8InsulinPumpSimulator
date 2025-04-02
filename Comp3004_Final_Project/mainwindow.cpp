@@ -14,8 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     user = new User();
 
     updateTimer = new QTimer(this);
-    connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
-    updateTimer->start(1000);
+    connect(updateTimer, &QTimer::timeout, this, &MainWindow::update);
 
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
@@ -26,8 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnBolusCalculate, &QPushButton::clicked, this, &MainWindow::onBolusCalculate);
     connect(ui->btnBolusStart, &QPushButton::clicked, this, &MainWindow::onBolusStart);
     connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
+    connect(ui->btnStopBolus, &QPushButton::clicked, this, &MainWindow::onBolusStop);
 
 
+    // Connect Keyboard Shorcuts
+    QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+B"), this);
+    connect(shortcut, &QShortcut::activated, this, &MainWindow::onCtrlB);
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
@@ -69,8 +72,25 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// MAIN UPDATE FUNCTION
+// CALLED EVERY SECOND
+void MainWindow::update()
+{
+    // Process components
+    device.tick();
+
+    // Update UI
+    updateChartData();
+    ui->barBattery->setValue(std::ceil(device.getBatteryPercent()));
+    ui->lblRemainingBolus->setText((QString::number(device.getBolusBuffer()) + " units"));
+    ui->lblRemainingOnboard->setText((QString::number(device.getInsulinOnBoard()) + " units"));
+    ui->btnStopBolus->setEnabled(device.getBolusBuffer() > 0);
+}
+
 void MainWindow::on_Start_clicked()
 {
+    update();
+    updateTimer->start(1000);
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -267,4 +287,15 @@ void MainWindow::onBolusStart() {
 
 void MainWindow::onBolusScan() {
     ui->txtGlucoseAmount->setText(QString::number(user->getCurrentGlucoseLevel()));
+}
+
+void MainWindow::onBolusStop()
+{
+    device.cancel();
+    ui->btnStopBolus->setEnabled(false);
+}
+
+void MainWindow::onCtrlB()
+{
+    device.addBattery(1);
 }

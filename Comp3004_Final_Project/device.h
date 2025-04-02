@@ -37,12 +37,16 @@ public:
      */
     void tick();
 
+
+    void cancel();
+
+    inline void addBattery(float i) { batteryPercent += i; }
     inline float getInsulinOnBoard() const { return insulinOnBoard; }
     inline float getBatteryPercent() const { return batteryPercent; }
     inline float getBolusBuffer() const { return bolusBuffer; }
     inline float isBolusBufferClear() const { return bolusBuffer == 0; }
 private:
-
+    bool batteryWarned = false;
     float insulinOnBoard;
     float batteryConsumptionRate;
     float batteryPercent;
