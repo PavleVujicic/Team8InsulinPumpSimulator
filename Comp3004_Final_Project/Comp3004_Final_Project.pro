@@ -11,12 +11,14 @@ CONFIG += c++11
 
 SOURCES += \
     User.cpp \
+    device.cpp \
     main.cpp \
     mainwindow.cpp \
     profilemanager.cpp
 
 HEADERS += \
     User.h \
+    device.h \
     mainwindow.h \
     profilemanager.h
 

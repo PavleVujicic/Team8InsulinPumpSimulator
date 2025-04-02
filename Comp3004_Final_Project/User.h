@@ -16,7 +16,7 @@ class User {
 public:
     User();
 
-    float getCurrentGlucoseLevel() const;
+    inline float getCurrentGlucoseLevel() const { return currentGlucose; }
     void simulateGlucose();
     void applyInsulin(float units);     // Affects future glucose levels
 

@@ -21,7 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
-
+    connect(ui->toolButton_2, &QPushButton::clicked, this, &MainWindow::onBolusClicked);
+    connect(ui->btnBolusBack, &QPushButton::clicked, this, &MainWindow::onBolusCancel);
+    connect(ui->btnBolusCalculate, &QPushButton::clicked, this, &MainWindow::onBolusCalculate);
+    connect(ui->btnBolusStart, &QPushButton::clicked, this, &MainWindow::onBolusStart);
+    connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
 
 
 
@@ -57,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->chartContainer->layout()->addWidget(chartView);
 
+    ui->stackedWidget->setCurrentWidget(ui->Page1);
 }
 
 MainWindow::~MainWindow()
@@ -232,3 +237,34 @@ void MainWindow::updateChartData() {
 }
 
 
+void MainWindow::onBolusClicked() {
+    ui->stackedWidget->setCurrentWidget(ui->PageBolus);
+    // Check User Info and populate
+
+}
+
+void MainWindow::onBolusCancel() {
+    ui->stackedWidget->setCurrentWidget(ui->page4);
+}
+
+void MainWindow::onBolusCalculate() {
+    float glucose = 0;
+    float carbs = 0;
+    bool useCarbs = ui->radUseCarbs->isChecked();
+    carbs = ui->txtInsulinAmount->text().toFloat() * (useCarbs ? 1 : 10.0f); // TODO: Replace 10.0f with current profile carb ratio
+
+
+    // BolusResult br = BolusCalculator.calculateBolus(glucose, cabrs);
+
+    // Send br for bolus delivery
+
+    // Update br
+}
+
+void MainWindow::onBolusStart() {
+    // TODO: implement
+}
+
+void MainWindow::onBolusScan() {
+    ui->txtGlucoseAmount->setText(QString::number(user->getCurrentGlucoseLevel()));
+}

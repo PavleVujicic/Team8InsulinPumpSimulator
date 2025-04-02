@@ -16,7 +16,7 @@
 #include "profilemanager.h"
 #include "User.h"
 
-QT_CHARTS_USE_NAMESPACE
+// QT_CHARTS_USE_NAMESPACE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,7 +42,11 @@ private slots:
     void on_Start_clicked();
 
     void updateChartData();
-
+    void onBolusClicked();
+    void onBolusCancel();
+    void onBolusCalculate();
+    void onBolusStart();
+    void onBolusScan();
 private:
     Ui::MainWindow *ui;
     ProfileManager profileManager;
