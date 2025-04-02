@@ -50,6 +50,8 @@ public:
     inline float getBolusBuffer() const { return bolusBuffer; }
     inline float isBolusBufferClear() const { return bolusBuffer == 0; }
 
+    inline Profile* getSelectedProfile() const { return selectedProfile; }
+
     void setUser(User*);
     void setSelectedProfile(Profile*);
 

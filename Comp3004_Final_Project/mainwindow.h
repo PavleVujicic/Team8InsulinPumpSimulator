@@ -57,7 +57,7 @@ private slots:
 private:
 
     Ui::MainWindow *ui;
-    ProfileManager profileManager;
+    // ProfileManager profileManager;
     QButtonGroup* profileGroup;
     User *user;
     Device device;

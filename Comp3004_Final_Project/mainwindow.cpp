@@ -34,6 +34,18 @@ MainWindow::MainWindow(QWidget *parent)
     QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+B"), this);
     connect(shortcut, &QShortcut::activated, this, &MainWindow::onCtrlB);
 
+    // Set text box validation (only set text boxes to ints, doubles, etc...)
+    // - Manual Bolus Page
+    ui->txtBolusInstant->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusLongterm->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusRate->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtGlucoseAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtInsulinAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+
+    // Generate premade profile
+    user->getProfileManager()->createProfile("Regular Use", 6.25, 10.0f, 1.4f, 1234);
+    addProfileToUI("Regular Use");
+
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
     pen.setStyle(Qt::DotLine); // Make the line dotted
@@ -279,8 +291,6 @@ void MainWindow::updateChartData() {
 
 void MainWindow::onBolusClicked() {
     ui->stackedWidget->setCurrentWidget(ui->PageBolus);
-    // Check User Info and populate
-
 }
 
 void MainWindow::onBolusCancel() {
@@ -295,17 +305,42 @@ void MainWindow::onBolusCancel() {
 }
 
 void MainWindow::onBolusCalculate() {
+    QMessageBox startBox;
+    startBox.setText("Calculate insulin dose?");
+    startBox.setInformativeText("Values in bolus dose will be overwritten with suggested amounts based off input & preferences.");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
+
+    case QMessageBox::Ok:
+        break;
+
+    default:
+        // should not be reached
+        break;
+    }
+
+
     float glucose = 0;
-    float carbs = 0;
+    float totalInsulin = 0;
+    float time = 30.0f; // in seconds. Normally, 3 hours however for demo purposes it has been cut to 30 secs
     bool useCarbs = ui->radUseCarbs->isChecked();
-    carbs = ui->txtInsulinAmount->text().toFloat() * (useCarbs ? 1 : 10.0f); // TODO: Replace 10.0f with current profile carb ratio
+    totalInsulin = ui->txtInsulinAmount->text().toFloat() / (!useCarbs ? 1 : device.getSelectedProfile()->carbRatio);
 
+    // TODO: totalInsulin += min(0, target - current) * glucose_ratio
 
-    // BolusResult br = BolusCalculator.calculateBolus(glucose, cabrs);
+    // Calculate plan
+    float multiplier = ui->radDeliveryImmediate->isChecked() ? 0.6f : 0.4;
+    float instant = multiplier * totalInsulin;
+    float extended = totalInsulin - instant;
+    float rate = extended / time;
 
-    // Send br for bolus delivery
-
-    // Update br
+    //Set values
+    ui->txtBolusInstant->setText(QString::number(instant));
+    ui->txtBolusLongterm->setText(QString::number(extended));
+    ui->txtBolusRate->setText(QString::number(rate));
 }
 
 void MainWindow::onBolusStart() {
@@ -326,16 +361,18 @@ void MainWindow::onBolusStart() {
         break;
     }
 
+    // Collect info
     float initial = ui->txtBolusInstant->text().toFloat();
     float longterm = ui->txtBolusLongterm->text().toFloat();
     float rate = ui->txtBolusRate->text().toFloat();
+
+    // Start thingy
     bool started = device.startBolusPlan(initial, longterm, rate);
 
     if (!started) {
         QMessageBox::warning(this, "Error!", "Not enough insulin on board! Please add more.");
     }
 
-    // Do start stuff
 
     // Clear and return to home
     onBolusCancel();

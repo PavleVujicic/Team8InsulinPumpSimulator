@@ -1055,7 +1055,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radDeliveryNoraml">
+     <widget class="QRadioButton" name="radDeliveryImmediate">
       <property name="geometry">
        <rect>
         <x>610</x>
@@ -1085,22 +1085,6 @@
       </property>
       <property name="text">
        <string>Extended</string>
-      </property>
-      <attribute name="buttonGroup">
-       <string notr="true">group2</string>
-      </attribute>
-     </widget>
-     <widget class="QRadioButton" name="radDeliveryRapid">
-      <property name="geometry">
-       <rect>
-        <x>610</x>
-        <y>270</y>
-        <width>112</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Rapid</string>
       </property>
       <attribute name="buttonGroup">
        <string notr="true">group2</string>
