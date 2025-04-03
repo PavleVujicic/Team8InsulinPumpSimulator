@@ -47,6 +47,8 @@ private slots:
     void setArrowRight();
     void updateDirection();
 
+    void on_EatFood_clicked();
+
 private:
     Ui::MainWindow *ui;
     ProfileManager profileManager;

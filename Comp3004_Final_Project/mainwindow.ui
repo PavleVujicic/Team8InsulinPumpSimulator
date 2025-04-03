@@ -53,6 +53,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -139,6 +140,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -414,6 +416,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -502,10 +505,7 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -619,17 +619,14 @@
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <widget class="QLabel" name="Glucose_tracker">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>20</x>
          <y>10</y>
-         <width>61</width>
+         <width>101</width>
          <height>61</height>
         </rect>
        </property>
@@ -642,7 +639,7 @@
         <string>0.0</string>
        </property>
        <property name="textFormat">
-        <enum>Qt::TextFormat::RichText</enum>
+        <enum>Qt::PlainText</enum>
        </property>
       </widget>
       <widget class="QLabel" name="label_11">
@@ -708,6 +705,32 @@
        <string>235 u</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="EatFood">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>390</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eat Food</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>430</y>
+        <width>221</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -717,7 +740,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>36</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

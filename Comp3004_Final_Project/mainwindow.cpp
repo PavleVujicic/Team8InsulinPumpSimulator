@@ -5,8 +5,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , profileGroup(new QButtonGroup(this))
-    , series(new QLineSeries(this))
-    , chart(new QChart())
+    , chart(new QChart())  // Initialize chart first
+    , series(new QLineSeries(this)) // Then initialize series
     , axisX(new QValueAxis())
     , axisY(new QValueAxis())
     , constantLine3_9(new QLineSeries(this))
@@ -21,19 +21,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
     updateTimer->start(1000);
 
+    ui-> label_6->setText("(Increases Carbohydrate/Glucose\nlevels)");
+
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
-
-
-
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
     pen.setStyle(Qt::DotLine); // Make the line dotted
     series->setPen(pen);
 
+    // Now that chart is initialized, we can add the series to it
     chart->addSeries(series);
     chart->setTheme(QChart::ChartThemeDark);
 
@@ -43,41 +43,37 @@ MainWindow::MainWindow(QWidget *parent)
     constantLine3_9->append(0, 3.9);
     constantLine3_9->append(30, 3.9);
     chart->addSeries(constantLine3_9);
-    constantLine3_9->attachAxis(axisX);
-    constantLine3_9->attachAxis(axisY);
 
     QPen linePen10(Qt::yellow, 2, Qt::SolidLine);
     constantLine10->setPen(linePen10);
     constantLine10->append(0, 10);
     constantLine10->append(30, 10);
     chart->addSeries(constantLine10);
+
+    // Attach the axes to the chart (chart's addAxis)
+    chart->addAxis(axisX, Qt::AlignBottom);  // Attach X-axis at the bottom
+    chart->addAxis(axisY, Qt::AlignLeft);    // Attach Y-axis on the left
+
+    // Attach the series and constant lines to the axes
+    series->attachAxis(axisX);
+    series->attachAxis(axisY);
+
+    constantLine3_9->attachAxis(axisX);
+    constantLine3_9->attachAxis(axisY);
+
     constantLine10->attachAxis(axisX);
     constantLine10->attachAxis(axisY);
-
-
 
     axisX->setRange(0, 30); // Adjust according to your needs
     axisX->setLabelsVisible(false);
     axisY->setRange(2, 22); // Explicit range to include your tick points
     axisY->setTickCount(6);  // Sets the number of ticks to be exactly 6
     axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
-
     axisY->setMinorGridLineVisible(false);
-
-    chart->setAxisX(axisX, series);
-    chart->setAxisY(axisY, series);
-
-    chart->setAxisX(axisX, constantLine3_9);
-    chart->setAxisY(axisY, constantLine3_9);
-    chart->setAxisX(axisX, constantLine10);
-    chart->setAxisY(axisY, constantLine10);
-
 
     // Initialize the chart view
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-
-
 
     // Ensure the chartContainer has a layout
     if (ui->chartContainer->layout() == nullptr) {
@@ -85,8 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
         ui->chartContainer->setLayout(layout);
     }
     ui->chartContainer->layout()->addWidget(chartView);
-
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -249,8 +245,12 @@ void MainWindow::updateChartData() {
     user->simulateGlucose(); // Simulate data change
     QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
 
+    if (user->foodConsumed == false) {
+        ui->EatFood->setEnabled(true);
+    }
+
     // Update the Glucose_tracker label with the new value
-    float currentGlucose = user->getCurrentGlucoseLevel(); // Assumes such a getter exists
+    float currentGlucose = user->getCurrentGlucoseLevel();
     ui->Glucose_tracker->setText(QString::number(currentGlucose, 'f', 1));
 
     // Add new data to the series
@@ -311,5 +311,10 @@ void MainWindow::updateDirection() {
 }
 
 
+void MainWindow::on_EatFood_clicked()
+{
+    user->eatFood();
+    ui->EatFood->setEnabled(false);
+}
 
 
