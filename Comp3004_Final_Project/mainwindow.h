@@ -12,6 +12,7 @@
 #include <QtCharts/QChart>
 #include <QtCharts/QValueAxis>
 #include <QTimer>
+#include <QPixmap> //needed for icons states
 
 
 #include "profilemanager.h"
@@ -51,6 +52,9 @@ private slots:
     void setArrowUp();
     void setArrowRight();
     void updateDirection();
+    void updateConditionIcon();
+    void setIcon(const QString &filePath);
+    void updateStateOutput();
 
     void on_EatFood_clicked();
 

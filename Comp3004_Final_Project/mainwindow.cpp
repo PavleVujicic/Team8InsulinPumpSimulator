@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
     lastGlucose = user->getCurrentGlucoseLevel();
     setArrowRight(); // Set the initial arrow direction to right
 
+    //to make sure icon states are displayed in the ui, make sure the working directory is the Folder
+    // for example: /Users/pavlevujicic/Team8InsulinPumpSimulator/Comp3004_Final_Project
+    setIcon("Images/Maintains.png");
+
     updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
     updateTimer->start(1000);
@@ -77,6 +81,12 @@ MainWindow::MainWindow(QWidget *parent)
     axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
     axisY->setMinorGridLineVisible(false);
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> f0276ae243ceffef2f792d610c342c1440e70399
     // Initialize the chart view
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
@@ -276,6 +286,10 @@ void MainWindow::updateChartData() {
         axisX->setMax(axisX->max() + 1);
     }
 
+    updateConditionIcon();
+
+    // Update text label (STATE_OUTPUT)
+    updateStateOutput();
 
     // Ensure the constant lines span the full range of the updated axis
     constantLine3_9->clear();
@@ -322,11 +336,81 @@ void MainWindow::updateDirection() {
 }
 
 
+<<<<<<< HEAD
 void MainWindow::on_EatFood_clicked()
 {
     user->eatFood();
     ui->EatFood->setEnabled(false);
 }
+=======
+void MainWindow::updateConditionIcon()
+{
+    float currentGlucose = user->getCurrentGlucoseLevel();
+
+    if (currentGlucose <= 3.9f) {
+        setIcon("Images/Stops.png");
+    } else if (currentGlucose > 3.9f && currentGlucose < 6.25f) {
+        setIcon("Images/Decreases.png");
+    } else if (currentGlucose >= 6.25f && currentGlucose < 8.9f) {
+        setIcon("Images/Maintains.png");
+    } else if (currentGlucose >= 8.9f && currentGlucose < 10.0f) {
+        setIcon("Images/Increases.png");
+    } else { // currentGlucose >= 10.0f
+        setIcon("Images/Delivers.png");
+    }
+}
+
+void MainWindow::setIcon(const QString &filePath)
+{
+    QPixmap pixmap(filePath);
+    if (!pixmap.isNull()) {
+        // Scale to fit the label nicely
+        ui->iconLabel->setPixmap(pixmap.scaled(ui->iconLabel->size(),
+                                               Qt::KeepAspectRatio,
+                                               Qt::SmoothTransformation));
+    } else {
+        qDebug() << "Failed to load image from:" << filePath;
+    }
+}
+
+void MainWindow::updateStateOutput()
+{
+    float currentGlucose = user->getCurrentGlucoseLevel();
+
+    QString stateText;
+    QString color; // Use a valid CSS color (hex, named color, etc.)
+
+    if (currentGlucose <= 3.9f) {
+        stateText = "Stops";
+        color = "#E74C3C"; // red
+    } else if (currentGlucose > 3.9f && currentGlucose < 6.25f) {
+        stateText = "Decreases";
+        color = "#F39C12"; // orange
+    } else if (currentGlucose >= 6.25f && currentGlucose < 8.9f) {
+        stateText = "Maintains";
+        color = "#2E86C1"; // blue (example)
+    } else if (currentGlucose >= 8.9f && currentGlucose < 10.0f) {
+        stateText = "Increases";
+        color = "#6699CC"; // lighter blue (example)
+    } else { // currentGlucose >= 10.0f
+        stateText = "Delivers";
+        color = "#00AEEF"; // another blue shade (example)
+    }
+
+    // Find the label named "STATE_OUTPUT" in the UI
+    QLabel* stateLabel = findChild<QLabel*>("STATE_OUTPUT");
+    if (stateLabel) {
+        stateLabel->setText(stateText);
+        // Apply color via stylesheet
+        QString style = QString("QLabel { color: %1; }").arg(color);
+        stateLabel->setStyleSheet(style);
+    }
+}
+
+
+
+
+>>>>>>> f0276ae243ceffef2f792d610c342c1440e70399
 
 
 =======

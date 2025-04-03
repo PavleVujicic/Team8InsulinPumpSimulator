@@ -822,8 +822,66 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qradiobutton.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/QButtonGroup \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/QtCharts \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartglobal.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/chartsnamespace.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qarealegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qareaseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlesticklegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartview.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qdatetimeaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegend.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlogvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpielegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieslice.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpolarchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qscatterseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qsplineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxylegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxyseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
@@ -881,8 +939,66 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qradiobutton.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/QButtonGroup \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/QtCharts \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartglobal.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/chartsnamespace.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qarealegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qareaseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlesticklegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartview.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qdatetimeaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegend.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlogvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpielegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieslice.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpolarchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qscatterseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qsplineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxylegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxyseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
@@ -904,8 +1020,66 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qradiobutton.h \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/QButtonGroup \
 		../../../../Qt/5.15.18/macos/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/QtCharts \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartglobal.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/chartsnamespace.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qabstractseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qarealegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qareaseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qbarset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxplotseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qboxset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlesticklegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcandlestickset.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qcategoryaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qchartview.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qdatetimeaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhorizontalstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qhxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegend.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qlogvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpercentbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpielegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpieslice.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qpolarchart.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qscatterseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qsplineseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qstackedbarseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvalueaxis.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvbarmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvboxplotmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvcandlestickmodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvpiemodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qvxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxylegendmarker.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxymodelmapper.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qxyseries.h \
+		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \

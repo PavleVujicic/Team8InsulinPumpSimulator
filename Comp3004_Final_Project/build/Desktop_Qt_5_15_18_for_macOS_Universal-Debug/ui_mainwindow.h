@@ -85,6 +85,7 @@ public:
     QLabel *ARROW;
     QLabel *label_12;
     QLabel *label_13;
+    QLabel *iconLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -244,10 +245,10 @@ public:
         toolButton_2->setGeometry(QRect(220, 410, 191, 41));
         label_9 = new QLabel(page4);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(530, 20, 111, 16));
+        label_9->setGeometry(QRect(480, 20, 91, 16));
         progressBar = new QProgressBar(page4);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
-        progressBar->setGeometry(QRect(660, 20, 118, 23));
+        progressBar->setGeometry(QRect(677, 20, 101, 23));
         progressBar->setValue(80);
         label_10 = new QLabel(page4);
         label_10->setObjectName(QString::fromUtf8("label_10"));
@@ -286,6 +287,9 @@ public:
         label_13 = new QLabel(page4);
         label_13->setObjectName(QString::fromUtf8("label_13"));
         label_13->setGeometry(QRect(700, 40, 58, 16));
+        iconLabel = new QLabel(page4);
+        iconLabel->setObjectName(QString::fromUtf8("iconLabel"));
+        iconLabel->setGeometry(QRect(580, 10, 91, 51));
         stackedWidget->addWidget(page4);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -329,13 +333,14 @@ public:
         label_8->setText(QCoreApplication::translate("MainWindow", "STATE: Maintains", nullptr));
         toolButton->setText(QCoreApplication::translate("MainWindow", "OPTIONS", nullptr));
         toolButton_2->setText(QCoreApplication::translate("MainWindow", "BOLUS", nullptr));
-        label_9->setText(QCoreApplication::translate("MainWindow", "PUMP STATUS: B", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "PUMP STATUS: ", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "INSULIN ON BOARD", nullptr));
         Glucose_tracker->setText(QCoreApplication::translate("MainWindow", "0.0", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "mmol/L", nullptr));
         ARROW->setText(QCoreApplication::translate("MainWindow", "ARROW", nullptr));
         label_12->setText(QCoreApplication::translate("MainWindow", "1.1 u", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "235 u", nullptr));
+        iconLabel->setText(QString());
     } // retranslateUi
 
 };
