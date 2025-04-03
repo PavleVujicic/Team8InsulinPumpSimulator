@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QRadioButton>
 #include <QButtonGroup>
+<<<<<<< HEAD
 #include <QtCharts>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
@@ -17,6 +18,9 @@
 #include "User.h"
 
 QT_CHARTS_USE_NAMESPACE
+=======
+#include "profilemanager.h"
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +45,7 @@ private slots:
 
     void on_Start_clicked();
 
+<<<<<<< HEAD
     void updateChartData();
     void setArrowDown();
     void setArrowUp();
@@ -49,10 +54,13 @@ private slots:
 
     void on_EatFood_clicked();
 
+=======
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
 private:
     Ui::MainWindow *ui;
     ProfileManager profileManager;
     QButtonGroup* profileGroup;
+<<<<<<< HEAD
     QChartView *chartView;  // Add this line for chart view
     QChart *chart;          // Chart object
     QLineSeries *series;    // Series object for the chart
@@ -65,5 +73,7 @@ private:
     QLineSeries *constantLine3_9;
     QLineSeries *constantLine10;
     float lastGlucose;
+=======
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
 };
 #endif // MAINWINDOW_H

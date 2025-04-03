@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , profileGroup(new QButtonGroup(this))
+<<<<<<< HEAD
     , chart(new QChart())  // Initialize chart first
     , series(new QLineSeries(this)) // Then initialize series
     , axisX(new QValueAxis())
@@ -22,11 +23,16 @@ MainWindow::MainWindow(QWidget *parent)
     updateTimer->start(1000);
 
     ui-> label_6->setText("(Increases Carbohydrate/Glucose\nlevels)");
+=======
+{
+    ui->setupUi(this);
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
 
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
+<<<<<<< HEAD
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
@@ -84,6 +90,10 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
+=======
+}
+
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -241,6 +251,7 @@ void MainWindow::updateSelectedProfile() {
 }
 
 
+<<<<<<< HEAD
 void MainWindow::updateChartData() {
     user->simulateGlucose(); // Simulate data change
     QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
@@ -318,3 +329,5 @@ void MainWindow::on_EatFood_clicked()
 }
 
 
+=======
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e

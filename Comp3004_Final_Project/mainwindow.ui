@@ -23,9 +23,12 @@
       <height>501</height>
      </rect>
     </property>
+<<<<<<< HEAD
     <property name="currentIndex">
      <number>3</number>
     </property>
+=======
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
     <widget class="QWidget" name="Page1">
      <widget class="QPushButton" name="createProfile">
       <property name="geometry">
@@ -489,6 +492,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page4">
+<<<<<<< HEAD
      <widget class="QChartView" name="chartContainer">
       <property name="geometry">
        <rect>
@@ -724,11 +728,23 @@
         <x>530</x>
         <y>430</y>
         <width>221</width>
+=======
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>110</y>
+        <width>101</width>
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
         <height>41</height>
        </rect>
       </property>
       <property name="text">
+<<<<<<< HEAD
        <string/>
+=======
+       <string>Home Screen</string>
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
       </property>
      </widget>
     </widget>
@@ -746,6 +762,7 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+<<<<<<< HEAD
  <customwidgets>
   <customwidget>
    <class>QChartView</class>
@@ -754,6 +771,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+=======
+>>>>>>> f2be3f35f87feabeb74f29cd0bbb95dd6da2b27e
  <resources/>
  <connections/>
 </ui>
