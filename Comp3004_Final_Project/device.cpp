@@ -113,6 +113,25 @@ void Device::cancel()
     bolusBuffer = 0;
 }
 
+void Device::simulateBasal(){
+    if(selectedProfile==nullptr){
+        return;
+    }
+    float basalRate = selectedProfile->basalRate;
+
+    if(user->getCurrentGlucoseLevel()>=8.9f){
+        basalRate*=2;
+    }
+
+    if (insulinOnBoard<basalRate){
+        checkInsulinLevel();
+    }
+    std::cout<<"Deposit hourly basal: "<<basalRate<<" units"<<std::endl;
+    insulinOnBoard-=basalRate;
+    user->applyInsulin(basalRate);
+    //float effectOnGlucose = user->calculateInsulinEffect(basalRate);
+}
+
 void Device::setUser(User *u){user = u;}
 
 void Device::setSelectedProfile(Profile* p){

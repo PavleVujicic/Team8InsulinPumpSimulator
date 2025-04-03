@@ -15,7 +15,7 @@ public:
     inline float getCurrentGlucoseLevel() const { return currentGlucose; }
     void simulateGlucose();
     void applyInsulin(float units);     // Affects future glucose levels
-
+    float calculateInsulinEffect(float units);
     QVector<float> getGlucoseHistory() const;
     QVector<float> getGlucoseHistoryTail() const;
 
@@ -31,6 +31,8 @@ private:
 
     float insulinSensitivity;  // how much 1 unit of insulin lowers BG
     float carbImpactFactor;    // how much 1g of carbs raises BG
+
+
 
     QDateTime lastUpdated;
 

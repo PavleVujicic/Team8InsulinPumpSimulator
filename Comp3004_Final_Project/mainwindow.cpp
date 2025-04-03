@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::update);
 
+    hourlyBasalTimer = new QTimer(this);
+    connect(hourlyBasalTimer, &QTimer::timeout, this, &MainWindow::basalDeposit);
+
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
@@ -101,6 +104,11 @@ void MainWindow::update()
     ui->btnStopBolus->setEnabled(device.getBolusBuffer() > 0);
 }
 
+//basal depo function, called every 6 seconds
+void MainWindow::basalDeposit(){
+    device.simulateBasal();
+}
+
 void MainWindow::on_Start_clicked()
 {
     QRadioButton* selectedButton = qobject_cast<QRadioButton*>(profileGroup->checkedButton());
@@ -119,6 +127,7 @@ void MainWindow::on_Start_clicked()
     device.setSelectedProfile(profile);
     update();
     updateTimer->start(1000);
+    hourlyBasalTimer->start(6000);
     ui->stackedWidget->setCurrentIndex(3);
 }
 

@@ -52,6 +52,7 @@ public:
 
     inline Profile* getSelectedProfile() const { return selectedProfile; }
 
+    void simulateBasal();
     void setUser(User*);
     void setSelectedProfile(Profile*);
 

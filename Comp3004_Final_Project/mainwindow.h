@@ -33,6 +33,7 @@ public:
 
 private slots:
     void update();
+    void basalDeposit();
 
     void on_createProfile_clicked();
     void createNewProfile();
@@ -66,6 +67,7 @@ private:
     QChart *chart;          // Chart object
     QLineSeries *series;    // Series object for the chart
     QTimer *updateTimer;
+    QTimer *hourlyBasalTimer;
     QValueAxis *axisX;
     QValueAxis *axisY;
     int dataCount = 0;
