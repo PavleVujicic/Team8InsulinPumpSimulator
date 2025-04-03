@@ -880,6 +880,8 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
@@ -995,6 +997,8 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
@@ -1074,6 +1078,8 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtCharts.framework/Headers/qtchartsversion.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qtimer.h \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
 		../../User.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \

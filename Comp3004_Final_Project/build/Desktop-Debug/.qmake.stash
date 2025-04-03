@@ -45,3 +45,4 @@ QMAKE_MAC_SDK.macosx.PlatformPath = /Applications/Xcode.app/Contents/Developer/P
 QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_ACTOOL = /Applications/Xcode.app/Contents/Developer/usr/bin/actool
 QMAKE_XCODE_VERSION = 16.2
 QMAKE_LICHECK_TIMESTAMP = "Tue Apr 1"
+QMAKE_LICHECK_TIMESTAMP = "Wed Apr 2"
