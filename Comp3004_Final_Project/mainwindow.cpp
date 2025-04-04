@@ -5,8 +5,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , profileGroup(new QButtonGroup(this))
-    , series(new QLineSeries(this))
     , chart(new QChart())
+    , series(new QLineSeries(this))
     , axisX(new QValueAxis())
     , axisY(new QValueAxis())
     , constantLine3_9(new QLineSeries(this))
@@ -25,12 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
     updateTimer->start(1000);
 
+    ui-> label_6->setText("(Increases Carbohydrate/Glucose\nlevels)");
+
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
-
-
 
 
     // Customize the pen for the series
@@ -69,7 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
     constantLine10->attachAxis(axisY);
 
 
-
     axisX->setRange(0, 30); // Adjust according to your needs
     axisX->setLabelsVisible(false);
     axisY->setRange(2, 22); // Explicit range to include your tick points
@@ -77,8 +76,6 @@ MainWindow::MainWindow(QWidget *parent)
     axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
 
     axisY->setMinorGridLineVisible(false);
-
-
 
 
     // Initialize the chart view
@@ -257,6 +254,10 @@ void MainWindow::updateChartData() {
     user->simulateGlucose(); // Simulate data change
     QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
 
+    if (user->foodConsumed == false) {
+        ui->EatFood->setEnabled(true);
+    }
+
     // Update the Glucose_tracker label with the new value
     float currentGlucose = user->getCurrentGlucoseLevel(); // Assumes such a getter exists
     ui->Glucose_tracker->setText(QString::number(currentGlucose, 'f', 1));
@@ -388,7 +389,9 @@ void MainWindow::updateStateOutput()
 }
 
 
-
-
-
+void MainWindow::on_EatFood_clicked()
+{
+    user->eatFood();
+    ui->EatFood->setEnabled(false);
+}
 

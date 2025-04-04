@@ -51,6 +51,8 @@ private slots:
     void setIcon(const QString &filePath);
     void updateStateOutput();
 
+    void on_EatFood_clicked();
+
 private:
     Ui::MainWindow *ui;
     ProfileManager profileManager;
