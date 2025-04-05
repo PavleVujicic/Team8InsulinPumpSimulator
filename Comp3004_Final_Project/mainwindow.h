@@ -75,7 +75,6 @@ private:
     QChartView *chartView;  // Add this line for chart view
     QChart *chart;          // Chart object
     QLineSeries *series;    // Series object for the chart
-    User *user;
     QTimer *updateTimer;
     QTimer *hourlyBasalTimer;
 

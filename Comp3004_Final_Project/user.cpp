@@ -3,7 +3,7 @@
 //
 
 
-#include "User.h"
+#include "user.h"
 #include <QtMath>
 #include <QRandomGenerator>
 
