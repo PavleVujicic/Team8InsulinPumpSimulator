@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , device(Device())
     , profileGroup(new QButtonGroup(this))
     , chart(new QChart())
     , series(new QLineSeries(this))
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     user = new User();
+    device.setUser(user);
+
     lastGlucose = user->getCurrentGlucoseLevel();
     setArrowRight(); // Set the initial arrow direction to right
 
@@ -25,13 +28,34 @@ MainWindow::MainWindow(QWidget *parent)
     connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
     updateTimer->start(1000);
 
+    hourlyBasalTimer = new QTimer(this);
+    connect(hourlyBasalTimer, &QTimer::timeout, this, &MainWindow::basalDeposit);
+
     ui-> label_6->setText("(Increases Carbohydrate/Glucose\nlevels)");
 
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
+    //bolus stuff
+    connect(ui->toolButton_2, &QPushButton::clicked, this, &MainWindow::onBolusClicked);
+    connect(ui->btnBolusBack, &QPushButton::clicked, this, &MainWindow::onBolusCancel);
+    connect(ui->btnBolusCalculate, &QPushButton::clicked, this, &MainWindow::onBolusCalculate);
+    connect(ui->btnBolusStart, &QPushButton::clicked, this, &MainWindow::onBolusStart);
+    connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
+    connect(ui->btnStopBolus, &QPushButton::clicked, this, &MainWindow::onBolusStop);
 
+    // Connect Keyboard Shorcuts
+    QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+B"), this);
+    connect(shortcut, &QShortcut::activated, this, &MainWindow::onCtrlB);
+
+    // Set text box validation (only set text boxes to ints, doubles, etc...)
+    // - Manual Bolus Page
+    ui->txtBolusInstant->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusLongterm->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusRate->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtGlucoseAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtInsulinAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
@@ -100,6 +124,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Start_clicked()
 {
+  	QRadioButton* selectedButton = qobject_cast<QRadioButton*>(profileGroup->checkedButton());
+    if (!selectedButton) {
+        QMessageBox::warning(this, "Failed to start", "No profile selected.");
+        return;
+    }
+    QString profileName = selectedButton->text();
+
+    Profile* profile = user->getProfileManager()->getProfile(profileName.toStdString());
+    if (!profile) {
+        QMessageBox::warning(this, "Failed to start", "Profile not found.");
+        return;
+    }
+    device.setSelectedProfile(profile);
+
+    hourlyBasalTimer->start(6000);
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -121,7 +160,7 @@ void MainWindow::on_updateProfile_clicked()
     QString profileName = selectedButton->text();
 
     // Fetch the profile from ProfileManager
-    Profile* profile = profileManager.getProfile(profileName.toStdString());
+    Profile* profile = user->getProfileManager()->getProfile(profileName.toStdString());
     if (!profile) {
         QMessageBox::warning(this, "Update Profile", "Profile not found.");
         return;
@@ -150,8 +189,8 @@ void MainWindow::createNewProfile() {
         }
 
         // Create profile and store it in memory
-        profileManager.createProfile(name.toStdString(), basalRate, carbRatio, correctionFactor, pin);
-        profileManager.listProfiles();
+        user->getProfileManager()->createProfile(name.toStdString(), basalRate, carbRatio, correctionFactor, pin);
+        user->getProfileManager()->listProfiles();
 
         QMessageBox::information(this, "Profile Created", "Profile successfully added!");
 
@@ -189,7 +228,7 @@ void MainWindow::deleteSelectedProfile() {
     QString profileName = selectedButton->text();
 
     // Remove profile from ProfileManager
-    if (!profileManager.deleteProfile(profileName.toStdString())) {
+    if (!user->getProfileManager()->deleteProfile(profileName.toStdString())) {
         QMessageBox::warning(this, "Delete Profile", "Failed to delete profile.");
         return;
     }
@@ -213,7 +252,7 @@ void MainWindow::updateSelectedProfile() {
     QString oldProfileName = selectedButton->text();
 
     // Fetch the profile from ProfileManager
-    Profile* profile = profileManager.getProfile(oldProfileName.toStdString());
+    Profile* profile = user->getProfileManager()->getProfile(oldProfileName.toStdString());
     if (!profile) {
         QMessageBox::warning(this, "Update Profile", "Profile not found.");
         return;
@@ -232,12 +271,12 @@ void MainWindow::updateSelectedProfile() {
     }
 
     // Update the profile in ProfileManager
-    if (!profileManager.updateProfile(oldProfileName.toStdString(), basalRate, carbRatio, correctionFactor, pin, newName.toStdString())) {
+    if (!user->getProfileManager()->updateProfile(oldProfileName.toStdString(), basalRate, carbRatio, correctionFactor, pin, newName.toStdString())) {
         QMessageBox::warning(this, "Update Profile", "Failed to update profile.");
         return;
     }
 
-    profileManager.listProfiles();
+    user->getProfileManager()->listProfiles();
 
     // Update the radio button text
     if (oldProfileName != newName) {
@@ -287,6 +326,10 @@ void MainWindow::updateChartData() {
     constantLine10->clear();
     constantLine10->append(axisX->min(), 10);
     constantLine10->append(axisX->max(), 10);
+}
+
+void MainWindow::basalDeposit(){
+    device.simulateBasal();
 }
 
 void MainWindow::setArrowRight() {
@@ -395,3 +438,106 @@ void MainWindow::on_EatFood_clicked()
     ui->EatFood->setEnabled(false);
 }
 
+void MainWindow::onBolusClicked() {
+    ui->stackedWidget->setCurrentWidget(ui->PageBolus);
+}
+
+void MainWindow::onBolusCancel() {
+    // Go back
+    ui->stackedWidget->setCurrentWidget(ui->page4);
+    // Clear
+    ui->txtBolusInstant->setText("");
+    ui->txtBolusLongterm->setText("");
+    ui->txtBolusRate->setText("");
+    ui->txtInsulinAmount->setText("");
+    ui->txtGlucoseAmount->setText("");
+}
+
+void MainWindow::onBolusCalculate() {
+    QMessageBox startBox;
+    startBox.setText("Calculate insulin dose?");
+    startBox.setInformativeText("Values in bolus dose will be overwritten with suggested amounts based off input & preferences.");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
+
+    case QMessageBox::Ok:
+        break;
+
+    default:
+        // should not be reached
+        break;
+    }
+
+
+    float glucose = 0;
+    float totalInsulin = 0;
+    float time = 30.0f; // in seconds. Normally, 3 hours however for demo purposes it has been cut to 30 secs
+    bool useCarbs = ui->radUseCarbs->isChecked();
+    totalInsulin = ui->txtInsulinAmount->text().toFloat() / (!useCarbs ? 1 : device.getSelectedProfile()->carbRatio);
+
+    // TODO: totalInsulin += min(0, target - current) * glucose_ratio
+
+    // Calculate plan
+    float multiplier = ui->radDeliveryImmediate->isChecked() ? 0.6f : 0.4;
+    float instant = multiplier * totalInsulin;
+    float extended = totalInsulin - instant;
+    float rate = extended / time;
+
+    //Set values
+    ui->txtBolusInstant->setText(QString::number(instant));
+    ui->txtBolusLongterm->setText(QString::number(extended));
+    ui->txtBolusRate->setText(QString::number(rate));
+}
+
+void MainWindow::onBolusStart() {
+
+    QMessageBox startBox;
+    startBox.setText("Start insulin?");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
+
+    case QMessageBox::Ok:
+        break;
+
+    default:
+        // should not be reached
+        break;
+    }
+
+    // Collect info
+    float initial = ui->txtBolusInstant->text().toFloat();
+    float longterm = ui->txtBolusLongterm->text().toFloat();
+    float rate = ui->txtBolusRate->text().toFloat();
+
+    // Start thingy
+    bool started = device.startBolusPlan(initial, longterm, rate);
+
+    if (!started) {
+        QMessageBox::warning(this, "Error!", "Not enough insulin on board! Please add more.");
+    }
+
+
+    // Clear and return to home
+    onBolusCancel();
+}
+
+void MainWindow::onBolusScan() {
+    ui->txtGlucoseAmount->setText(QString::number(user->getCurrentGlucoseLevel()));
+}
+
+void MainWindow::onBolusStop()
+{
+    device.cancel();
+    ui->btnStopBolus->setEnabled(false);
+}
+
+void MainWindow::onCtrlB()
+{
+    device.addBattery(1);
+}

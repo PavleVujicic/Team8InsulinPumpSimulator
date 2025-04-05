@@ -883,7 +883,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
-		../../User.h \
+		../../user.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QVector \
@@ -917,7 +917,7 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-User.o: ../../User.cpp ../../User.h \
+User.o: ../../user.cpp ../../user.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QVector \
@@ -1000,7 +1000,7 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
-		../../User.h \
+		../../user.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QVector \
@@ -1081,7 +1081,7 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/QPixmap \
 		../../../../Qt/5.15.18/macos/lib/QtGui.framework/Headers/qpixmap.h \
 		../../profilemanager.h \
-		../../User.h \
+		../../user.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/5.15.18/macos/lib/QtCore.framework/Headers/QVector \

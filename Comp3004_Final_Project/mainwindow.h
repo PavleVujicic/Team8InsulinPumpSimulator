@@ -15,7 +15,8 @@
 
 
 #include "profilemanager.h"
-#include "User.h"
+#include "user.h"
+#include "device.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -53,15 +54,31 @@ private slots:
 
     void on_EatFood_clicked();
 
+    //Bolus/Basal stuff
+    void onBolusClicked();
+    void onBolusCancel();
+    void onBolusCalculate();
+    void onBolusStart();
+    void onBolusScan();
+    void onBolusStop();
+
+    void basalDeposit();
+
+    void onCtrlB();
+
 private:
     Ui::MainWindow *ui;
-    ProfileManager profileManager;
+	User *user;
+    Device device;
+
     QButtonGroup* profileGroup;
     QChartView *chartView;  // Add this line for chart view
     QChart *chart;          // Chart object
     QLineSeries *series;    // Series object for the chart
     User *user;
     QTimer *updateTimer;
+    QTimer *hourlyBasalTimer;
+
     QValueAxis *axisX;
     QValueAxis *axisY;
     int dataCount = 0;
