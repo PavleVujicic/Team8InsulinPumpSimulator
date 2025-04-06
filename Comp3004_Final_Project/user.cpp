@@ -6,6 +6,8 @@
 #include "user.h"
 #include <QtMath>
 #include <QRandomGenerator>
+#include <QDebug>
+
 
 User::User()
     : currentGlucose(6.0f),  // Normal level to start
@@ -18,23 +20,25 @@ User::User()
 }
 
 void User::simulateGlucose() {
-    carbsConsumed = QRandomGenerator::global()->bounded(10, 21); // Generate a random value between 10 and 20 for carbsConsumed
     float change;
 
-    // Check if food was consumed, and increase glucose accordingly
-    if (foodConsumed) {
-        float glucoseIncrease = carbsConsumed * foodMult / carbImpactFactor;  // Formula for glucose increase
-        currentGlucose += glucoseIncrease;  // Add glucose increase
-        foodConsumed = false;  // Reset foodConsumed flag after processing
+    // Simulate digestion: gradual glucose increase
+    if (digestionTimeRemaining > 0) {
+        currentGlucose += glucosePerSecond;
+        digestionTimeRemaining--;
+
+        if (digestionTimeRemaining == 0) {
+            foodConsumed = false; // digestion finished
+        }
     }
 
     // Handle random fluctuations in glucose
     if (increase) {
-        change = static_cast<float>(QRandomGenerator::global()->bounded(0, 201)) / 10000.0f; // Range [0.0, 0.2]
+        change = static_cast<float>(QRandomGenerator::global()->bounded(0, 201)) / 1000.0f; // Range [0.0, 0.2]
     } else if (decrease) {
-        change = static_cast<float>(QRandomGenerator::global()->bounded(-200, 1)) / 10000.0f; // Range [-0.2, 0.0]
+        change = static_cast<float>(QRandomGenerator::global()->bounded(-200, 0)) / 1000.0f; // Range [-0.2, 0.0]
     } else {
-        change = static_cast<float>(QRandomGenerator::global()->bounded(-400, 201)) / 10000.0f; // Range [-0.2, 0.2]
+        change = static_cast<float>(QRandomGenerator::global()->bounded(-200, 201)) / 1000.0f; // Range [-0.3, 0.3]
     }
 
     currentGlucose += change;
@@ -103,6 +107,13 @@ float User::getCurrentGlucoseLevel() const {
 
 void User::eatFood(int amount) {
     foodConsumed = true;
+
+    carbsConsumed = QRandomGenerator::global()->bounded(10, 21); // 10 to 20 grams
+    glucoseToAdd = carbsConsumed / carbImpactFactor;
+
+    digestionTimeRemaining = 10; // spread over 10 seconds
+    glucosePerSecond = glucoseToAdd / static_cast<float>(digestionTimeRemaining);
+
     switch (amount) {
     case 1:
         foodMult = 0.5f;

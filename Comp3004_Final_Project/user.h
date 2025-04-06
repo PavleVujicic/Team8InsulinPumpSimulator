@@ -32,6 +32,10 @@ private:
     float insulinSensitivity;  // how much 1 unit of insulin lowers BG
     float carbImpactFactor;    // how much 1g of carbs raises BG
     int carbsConsumed;
+    float glucoseToAdd = 0.0f;
+    float glucosePerSecond = 0.0f;
+    int digestionTimeRemaining = 0; // how many seconds remain for digestion
+
     float activeInsulin = 0;
     float glucoseLossPerInsulin = 4.0f;
 

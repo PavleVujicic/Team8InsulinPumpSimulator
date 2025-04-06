@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QRadioButton>
 #include <QButtonGroup>
+#include <QInputDialog>
 #include <QtCharts>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>

@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->txtInsulinAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
 
     // Generate premade profile
-    user->getProfileManager()->createProfile("Regular Use", 0.05f, 10.0f, 1.4f, 1234);
-    addProfileToUI("Regular Use");
+    user->getProfileManager()->createProfile("Regular Use (Pin: 1234)", 0.1f, 10.0f, 1.4f, 1234);
+    addProfileToUI("Regular Use (Pin: 1234)");
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
@@ -173,6 +173,18 @@ void MainWindow::on_Start_clicked()
     Profile* profile = user->getProfileManager()->getProfile(profileName.toStdString());
     if (!profile) {
         QMessageBox::warning(this, "Failed to start", "Profile not found.");
+        return;
+    }
+
+    bool ok;
+    int enteredPin = QInputDialog::getInt(this, "Enter PIN",
+                                          "Enter the 4-digit PIN for profile \"" + profileName + "\":",
+                                          0, 0, 9999, 1, &ok);
+
+    if (!ok) return;
+
+    if (enteredPin != profile->pin) {
+        QMessageBox::critical(this, "Incorrect PIN", "The entered PIN is incorrect.");
         return;
     }
 

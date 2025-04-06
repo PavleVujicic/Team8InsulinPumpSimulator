@@ -53,6 +53,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -139,6 +140,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -414,6 +416,7 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -502,7 +505,7 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::NoFrame</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -570,7 +573,7 @@
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Shape::NoFrame</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <widget class="QLabel" name="Glucose_tracker">
        <property name="geometry">
@@ -590,7 +593,7 @@
         <string>0.0</string>
        </property>
        <property name="textFormat">
-        <enum>Qt::TextFormat::PlainText</enum>
+        <enum>Qt::PlainText</enum>
        </property>
       </widget>
       <widget class="QLabel" name="label_11">
@@ -801,9 +804,6 @@
       <property name="text">
        <string>Elapsed Simulation Time</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
      </widget>
      <widget class="QLabel" name="lblTime">
       <property name="geometry">
@@ -817,14 +817,12 @@
       <property name="font">
        <font>
         <pointsize>24</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
        <string>0:0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QSlider" name="sliFood">
@@ -845,11 +843,8 @@
       <property name="sliderPosition">
        <number>2</number>
       </property>
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
       <property name="tickPosition">
-       <enum>QSlider::TickPosition::TicksBelow</enum>
+       <enum>QSlider::NoTicks</enum>
       </property>
       <property name="tickInterval">
        <number>1</number>
@@ -867,9 +862,6 @@
       <property name="text">
        <string>Meal</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="PageBolus">
@@ -884,11 +876,9 @@
       </property>
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="placeholderText">
        <string>Enter Value</string>
@@ -905,11 +895,9 @@
       </property>
       <property name="font">
        <font>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="placeholderText">
        <string>Enter Glucose</string>
@@ -928,7 +916,8 @@
        <string>Back</string>
       </property>
       <property name="icon">
-       <iconset theme="QIcon::ThemeIcon::WindowClose"/>
+       <iconset theme="QIcon::ThemeIcon::WindowClose">
+        <normaloff>.</normaloff>.</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="btnBolusStart">
@@ -944,7 +933,8 @@
        <string>Start Bolus</string>
       </property>
       <property name="icon">
-       <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
+       <iconset theme="QIcon::ThemeIcon::DocumentSend">
+        <normaloff>.</normaloff>.</iconset>
       </property>
      </widget>
      <widget class="QLineEdit" name="txtBolusInstant">
@@ -959,11 +949,9 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="placeholderText">
        <string>Enter Value</string>
@@ -993,9 +981,6 @@
       </property>
       <property name="text">
        <string>Units</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QPushButton" name="btnScanGlucose">
@@ -1076,7 +1061,7 @@
        </rect>
       </property>
       <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
+       <enum>Qt::Vertical</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_14">
@@ -1104,11 +1089,9 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="placeholderText">
        <string>Enter Value</string>
@@ -1125,9 +1108,6 @@
       </property>
       <property name="text">
        <string>Units</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_16">
@@ -1155,11 +1135,9 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
+        <weight>75</weight>
         <bold>true</bold>
        </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
       <property name="placeholderText">
        <string>Enter Value</string>
@@ -1176,9 +1154,6 @@
       </property>
       <property name="text">
        <string>Units/second</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QRadioButton" name="radDeliveryImmediate">
@@ -1254,9 +1229,6 @@
       </property>
       <property name="text">
        <string>Options</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
      <widget class="QPushButton" name="btnOptionsProfiles">
@@ -1337,7 +1309,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

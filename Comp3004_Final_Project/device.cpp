@@ -146,8 +146,8 @@ void Device::simulateBasal(){
     float basalRate = selectedProfile->basalRate;
 
     if (user->getCurrentGlucoseLevel() < 3.9) basalRate = 0;
-    else if (user->getCurrentGlucoseLevel() < 6.25) basalRate *= 0.75;
-    else if (user->getCurrentGlucoseLevel() > 8.9) basalRate *= 0.75;
+    else if (user->getCurrentGlucoseLevel() < 6.25) basalRate *= 0.5;
+    else if (user->getCurrentGlucoseLevel() > 8.9) basalRate *= 2.0;
 
     if (insulinOnBoard<basalRate){
         checkInsulinLevel();
