@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -20,30 +21,33 @@ MainWindow::MainWindow(QWidget *parent)
     lastGlucose = user->getCurrentGlucoseLevel();
     setArrowRight(); // Set the initial arrow direction to right
 
-    //to make sure icon states are displayed in the ui, make sure the working directory is the Folder
-    // for example: /Users/pavlevujicic/Team8InsulinPumpSimulator/Comp3004_Final_Project
-    setIcon("Images/Maintains.png");
+    setIcon(":/Images/Maintains.png");
 
     updateTimer = new QTimer(this);
-    connect(updateTimer, &QTimer::timeout, this, &MainWindow::updateChartData);
-    updateTimer->start(1000);
+    connect(updateTimer, &QTimer::timeout, this, &MainWindow::update);
 
     hourlyBasalTimer = new QTimer(this);
     connect(hourlyBasalTimer, &QTimer::timeout, this, &MainWindow::basalDeposit);
-
-    ui-> label_6->setText("(Increases Carbohydrate/Glucose\nlevels)");
 
     // Making Connections
     connect(ui->SubmitForm, &QPushButton::clicked, this, &MainWindow::createNewProfile);
     connect(ui->deleteProfile, &QPushButton::clicked, this, &MainWindow::deleteSelectedProfile);
     connect(ui->Update, &QPushButton::clicked, this, &MainWindow::updateSelectedProfile);
+
+    connect(ui->sliFood, &QAbstractSlider::valueChanged, this, &MainWindow::onFoodSliderChange);
+    //settings
+    connect(ui->btnOptions, &QPushButton::clicked, this, &MainWindow::onOptionsPress);
+    connect(ui->btnOptionsHome, &QPushButton::clicked, this, &MainWindow::onOptionsHome);
+    connect(ui->btnOptionsProfiles, &QPushButton::clicked, this, &MainWindow::onOptionsProfile);
+
     //bolus stuff
-    connect(ui->toolButton_2, &QPushButton::clicked, this, &MainWindow::onBolusClicked);
-//    connect(ui->btnBolusBack, &QPushButton::clicked, this, &MainWindow::onBolusCancel);
-//    connect(ui->btnBolusCalculate, &QPushButton::clicked, this, &MainWindow::onBolusCalculate);
-//    connect(ui->btnBolusStart, &QPushButton::clicked, this, &MainWindow::onBolusStart);
-//    connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
-//    connect(ui->btnStopBolus, &QPushButton::clicked, this, &MainWindow::onBolusStop);
+    connect(ui->btnBolus, &QPushButton::clicked, this, &MainWindow::onBolusClicked);
+    connect(ui->btnBolusBack, &QPushButton::clicked, this, &MainWindow::onBolusCancel);
+    connect(ui->btnBolusCalculate, &QPushButton::clicked, this, &MainWindow::onBolusCalculate);
+    connect(ui->btnBolusStart, &QPushButton::clicked, this, &MainWindow::onBolusStart);
+    connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
+    connect(ui->btnStopBolus, &QPushButton::clicked, this, &MainWindow::onBolusStop);
+
 
     // Connect Keyboard Shorcuts
     QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+B"), this);
@@ -51,16 +55,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Set text box validation (only set text boxes to ints, doubles, etc...)
     // - Manual Bolus Page
-//    ui->txtBolusInstant->setValidator(new QDoubleValidator(0, 100, 10, this));
-//    ui->txtBolusLongterm->setValidator(new QDoubleValidator(0, 100, 10, this));
-//    ui->txtBolusRate->setValidator(new QDoubleValidator(0, 100, 10, this));
-//    ui->txtGlucoseAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
-//    ui->txtInsulinAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusInstant->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusLongterm->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtBolusRate->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtGlucoseAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+    ui->txtInsulinAmount->setValidator(new QDoubleValidator(0, 100, 10, this));
+
+    // Generate premade profile
+    user->getProfileManager()->createProfile("Regular Use", 0.05f, 10.0f, 1.4f, 1234);
+    addProfileToUI("Regular Use");
 
     // Customize the pen for the series
     QPen pen(Qt::white, 2);
     pen.setStyle(Qt::DotLine); // Make the line dotted
     series->setPen(pen);
+    series->setName("current glucose (mmol/L)");
 
     chart->addSeries(series);
     chart->setTheme(QChart::ChartThemeDark);
@@ -70,12 +79,14 @@ MainWindow::MainWindow(QWidget *parent)
     constantLine3_9->setPen(linePen3_9);
     constantLine3_9->append(0, 3.9);
     constantLine3_9->append(30, 3.9);
+    constantLine3_9->setName("min. safe range");
     chart->addSeries(constantLine3_9);
 
     QPen linePen10(Qt::yellow, 2, Qt::SolidLine);
     constantLine10->setPen(linePen10);
     constantLine10->append(0, 10);
     constantLine10->append(30, 10);
+    constantLine10->setName("max. safe range");
     chart->addSeries(constantLine10);
 
     // Attach the axes to the chart (chart's addAxis)
@@ -95,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     axisX->setRange(0, 30); // Adjust according to your needs
     axisX->setLabelsVisible(false);
-    axisY->setRange(2, 22); // Explicit range to include your tick points
+    axisY->setRange(2, 16); // Explicit range to include your tick points
     axisY->setTickCount(6);  // Sets the number of ticks to be exactly 6
     axisY->setTickInterval(4);  // Sets the interval between ticks to 4 (2, 6, 10, 14, 18, 22)
     axisY->setMinorGridLineVisible(false);
@@ -115,12 +126,40 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->chartContainer->layout()->addWidget(chartView);
 
+    ui->stackedWidget->setCurrentWidget(ui->Page1);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+// MAIN UPDATE FUNCTION
+// CALLED EVERY SECOND
+void MainWindow::update()
+{
+    secondsElapsed++;
+    // Process components
+    device.tick();
+    user->simulateGlucose(); // Simulate Glucose
+
+    // Update UI
+    float onboard = device.getInsulinOnBoard();
+    updateChartData();                                                                          // Chart
+    ui->barBattery->setValue(std::ceil(device.getBatteryPercent()));                            // Battery Bar
+    ui->lblRemainingBolus->setText((QString::number(device.getBolusBuffer()) + " units"));      // Remaining Bolus
+    ui->btnStopBolus->setEnabled(device.getBolusBuffer() > 0);                                  // Cancel Button
+    if (onboard > 240) {                                                                        // Insulin Onboard
+        ui->lblRemainingOnboard->setText("+240 units");                                         // |
+        ui->barOnBoard->setValue(100);                                                          // |
+    } else {                                                                                    // |
+        ui->lblRemainingOnboard->setText((QString::number(std::floor(onboard)) + " units"));    // |
+        ui->barOnBoard->setValue(std::floor(100.00 * onboard / 240.0f));                        // |
+    }                                                                                           // |
+    ui->lblTime->setText(QString::number(secondsElapsed / 60) + ":" + QString::number(secondsElapsed * 10 % 60)); // Time
+}
+
+
 
 void MainWindow::on_Start_clicked()
 {
@@ -136,8 +175,12 @@ void MainWindow::on_Start_clicked()
         QMessageBox::warning(this, "Failed to start", "Profile not found.");
         return;
     }
-    device.setSelectedProfile(profile);
 
+    // Populate graph with starter values
+
+    device.setSelectedProfile(profile);
+    update();
+    updateTimer->start(1000);
     hourlyBasalTimer->start(6000);
     ui->stackedWidget->setCurrentIndex(3);
 }
@@ -290,7 +333,6 @@ void MainWindow::updateSelectedProfile() {
 
 
 void MainWindow::updateChartData() {
-    user->simulateGlucose(); // Simulate data change
     QVector<float> glucoseHistory = user->getGlucoseHistoryTail();
 
     if (user->foodConsumed == false) {
@@ -372,15 +414,15 @@ void MainWindow::updateConditionIcon()
     float currentGlucose = user->getCurrentGlucoseLevel();
 
     if (currentGlucose <= 3.9f) {
-        setIcon("Images/Stops.png");
+        setIcon(":/Images/Stops.png");
     } else if (currentGlucose > 3.9f && currentGlucose < 6.25f) {
-        setIcon("Images/Decreases.png");
+        setIcon(":/Images/Decreases.png");
     } else if (currentGlucose >= 6.25f && currentGlucose < 8.9f) {
-        setIcon("Images/Maintains.png");
+        setIcon(":/Images/Maintains.png");
     } else if (currentGlucose >= 8.9f && currentGlucose < 10.0f) {
-        setIcon("Images/Increases.png");
+        setIcon(":/Images/Increases.png");
     } else { // currentGlucose >= 10.0f
-        setIcon("Images/Delivers.png");
+        setIcon(":/Images/Delivers.png");
     }
 }
 
@@ -434,107 +476,143 @@ void MainWindow::updateStateOutput()
 
 void MainWindow::on_EatFood_clicked()
 {
-    user->eatFood();
+    user->eatFood(ui->sliFood->value());
     ui->EatFood->setEnabled(false);
 }
 
 void MainWindow::onBolusClicked() {
-//    ui->stackedWidget->setCurrentWidget(ui->PageBolus);
+    ui->stackedWidget->setCurrentWidget(ui->PageBolus);
 }
 
 void MainWindow::onBolusCancel() {
     // Go back
     ui->stackedWidget->setCurrentWidget(ui->page4);
     // Clear
-//    ui->txtBolusInstant->setText("");
-//    ui->txtBolusLongterm->setText("");
-//    ui->txtBolusRate->setText("");
-//    ui->txtInsulinAmount->setText("");
-//    ui->txtGlucoseAmount->setText("");
+    ui->txtBolusInstant->setText("");
+    ui->txtBolusLongterm->setText("");
+    ui->txtBolusRate->setText("");
+    ui->txtInsulinAmount->setText("");
+    ui->txtGlucoseAmount->setText("");
 }
 
 void MainWindow::onBolusCalculate() {
-//    QMessageBox startBox;
-//    startBox.setText("Calculate insulin dose?");
-//    startBox.setInformativeText("Values in bolus dose will be overwritten with suggested amounts based off input & preferences.");
-//    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
-//    switch (startBox.exec()) {
-//    case QMessageBox::Cancel:
-//        return;
-//        break;
+    QMessageBox startBox;
+    startBox.setText("Calculate insulin dose?");
+    startBox.setInformativeText("Values in bolus dose will be overwritten with suggested amounts based off input & preferences.");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
 
-//    case QMessageBox::Ok:
-//        break;
+    case QMessageBox::Ok:
+        break;
 
-//    default:
-//        // should not be reached
-//        break;
-//    }
+    default:
+        // should not be reached
+        break;
+    }
 
 
-//    float glucose = 0;
-//    float totalInsulin = 0;
-//    float time = 30.0f; // in seconds. Normally, 3 hours however for demo purposes it has been cut to 30 secs
-//    bool useCarbs = ui->radUseCarbs->isChecked();
-//    totalInsulin = ui->txtInsulinAmount->text().toFloat() / (!useCarbs ? 1 : device.getSelectedProfile()->carbRatio);
+    // float glucose = 0;
+    float totalInsulin = 0;
+    float time = 30.0f; // in seconds. Normally, 3 hours however for demo purposes it has been cut to 30 secs
+    bool useCarbs = ui->radUseCarbs->isChecked();
+    totalInsulin = ui->txtInsulinAmount->text().toFloat() / (!useCarbs ? 1 : device.getSelectedProfile()->carbRatio);
 
-//    // TODO: totalInsulin += min(0, target - current) * glucose_ratio
+    totalInsulin += std::min(0.0f, 4.5f - user->getCurrentGlucoseLevel()) / 4.0f;
 
-//    // Calculate plan
-//    float multiplier = ui->radDeliveryImmediate->isChecked() ? 0.6f : 0.4;
-//    float instant = multiplier * totalInsulin;
-//    float extended = totalInsulin - instant;
-//    float rate = extended / time;
+    // Calculate plan
+    float multiplier = ui->radDeliveryImmediate->isChecked() ? 0.6f : 0.4;
+    float instant = multiplier * totalInsulin;
+    float extended = totalInsulin - instant;
+    float rate = extended / time;
 
-//    //Set values
-//    ui->txtBolusInstant->setText(QString::number(instant));
-//    ui->txtBolusLongterm->setText(QString::number(extended));
-//    ui->txtBolusRate->setText(QString::number(rate));
+    //Set values
+    ui->txtBolusInstant->setText(QString::number(std::max(0.0f, instant)));
+    ui->txtBolusLongterm->setText(QString::number(std::max(0.0f, extended)));
+    ui->txtBolusRate->setText(QString::number(std::max(0.0f, rate)));
 }
 
 void MainWindow::onBolusStart() {
 
-//    QMessageBox startBox;
-//    startBox.setText("Start insulin?");
-//    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
-//    switch (startBox.exec()) {
-//    case QMessageBox::Cancel:
-//        return;
-//        break;
+    QMessageBox startBox;
+    startBox.setText("Start insulin?");
+    startBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+    switch (startBox.exec()) {
+    case QMessageBox::Cancel:
+        return;
+        break;
 
-//    case QMessageBox::Ok:
-//        break;
+    case QMessageBox::Ok:
+        break;
 
-//    default:
-//        // should not be reached
-//        break;
-//    }
+    default:
+        // should not be reached
+        break;
+    }
 
-//    // Collect info
-//    float initial = ui->txtBolusInstant->text().toFloat();
-//    float longterm = ui->txtBolusLongterm->text().toFloat();
-//    float rate = ui->txtBolusRate->text().toFloat();
+    // Collect info
+    float initial = ui->txtBolusInstant->text().toFloat();
+    float longterm = ui->txtBolusLongterm->text().toFloat();
+    float rate = ui->txtBolusRate->text().toFloat();
 
-//    // Start thingy
-//    bool started = device.startBolusPlan(initial, longterm, rate);
+    // Start thingy
+    bool started = device.startBolusPlan(initial, longterm, rate);
 
-//    if (!started) {
-//        QMessageBox::warning(this, "Error!", "Not enough insulin on board! Please add more.");
-//    }
+    if (!started) {
+        QMessageBox::warning(this, "Error!", "Not enough insulin on board! Please add more.");
+    }
 
 
-//    // Clear and return to home
-//    onBolusCancel();
+    // Clear and return to home
+    onBolusCancel();
 }
 
 void MainWindow::onBolusScan() {
-//    ui->txtGlucoseAmount->setText(QString::number(user->getCurrentGlucoseLevel()));
+    ui->txtGlucoseAmount->setText(QString::number(user->getCurrentGlucoseLevel()));
 }
 
 void MainWindow::onBolusStop()
 {
     device.cancel();
-//    ui->btnStopBolus->setEnabled(false);
+    ui->btnStopBolus->setEnabled(false);
+}
+
+void MainWindow::onOptionsPress()
+{
+    updateTimer->stop();
+    hourlyBasalTimer->stop();
+    ui->stackedWidget->setCurrentWidget(ui->PageOptions);
+}
+
+void MainWindow::onOptionsHome()
+{
+    updateTimer->start();
+    hourlyBasalTimer->start();
+    ui->stackedWidget->setCurrentWidget(ui->page4);
+}
+
+void MainWindow::onOptionsProfile()
+{
+    ui->stackedWidget->setCurrentWidget(ui->Page1);
+}
+
+void MainWindow::onFoodSliderChange()
+{
+    switch (ui->sliFood->value()) {
+    case 1:
+        ui->lblFood->setText("Snack");
+        break;
+    case 2:
+        ui->lblFood->setText("Meal");
+        break;
+    case 3:
+        ui->lblFood->setText("XL Meal");
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::onCtrlB()

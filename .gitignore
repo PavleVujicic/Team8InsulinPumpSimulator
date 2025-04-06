@@ -1,0 +1,8 @@
+build/
+*/build/
+Comp3004_Final_Project/build
+Comp3004_Final_Project/*.pro.user.*
+Comp3004_Final_Project/*.pro.user
+*.DS_Store
+*pro.user
+Comp3004_Final_Project/Comp3004_Final_Project.pro.user

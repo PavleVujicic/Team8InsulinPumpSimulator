@@ -42,6 +42,8 @@ public:
 
     void checkInsulinLevel();
 
+    void checkEmergencyBolus();
+
     void cancel();
 
     inline void addBattery(float i) { batteryPercent += i; }
@@ -71,6 +73,9 @@ private:
     float bolusBuffer;
     float bolusTransferRate;
 
+    float emergencyAmountInstant;
+    float emergencyAmountLongterm;
+    float emergencyAmountRate;
     float basalRate;
 };
 

@@ -18,10 +18,11 @@ public:
     QVector<float> getGlucoseHistoryTail() const;
     ProfileManager* getProfileManager() const;
     bool foodConsumed = false;
+    float foodMult = 1;
 
     void setIncrease();
     void setDecrease();
-    void eatFood();
+    void eatFood(int amount = 1);
 
 private:
     ProfileManager* profileManager;
@@ -31,6 +32,8 @@ private:
     float insulinSensitivity;  // how much 1 unit of insulin lowers BG
     float carbImpactFactor;    // how much 1g of carbs raises BG
     int carbsConsumed;
+    float activeInsulin = 0;
+    float glucoseLossPerInsulin = 4.0f;
 
     QDateTime lastUpdated;
 

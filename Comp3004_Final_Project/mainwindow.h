@@ -12,13 +12,14 @@
 #include <QtCharts/QValueAxis>
 #include <QTimer>
 #include <QPixmap> //needed for icons states
+#include <QResource>
 
 
 #include "profilemanager.h"
 #include "user.h"
 #include "device.h"
 
-QT_CHARTS_USE_NAMESPACE
+// QT_CHARTS_USE_NAMESPACE
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -62,9 +63,16 @@ private slots:
     void onBolusScan();
     void onBolusStop();
 
+    void onOptionsPress();
+    void onOptionsHome();
+    void onOptionsProfile();
+
+    void onFoodSliderChange();
+
     void basalDeposit();
 
     void onCtrlB();
+    void update();
 
 private:
     Ui::MainWindow *ui;
@@ -85,5 +93,6 @@ private:
     QLineSeries *constantLine3_9;
     QLineSeries *constantLine10;
     float lastGlucose;
+    int secondsElapsed = 0;
 };
 #endif // MAINWINDOW_H

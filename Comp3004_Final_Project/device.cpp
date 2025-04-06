@@ -11,6 +11,10 @@ Device::Device(){
     insulinOnBoard = 200.0f;            // default: 200
     insulinLowThreshhold = 20.0f;       // default: 20
     warnInterval = 30;                  // default: 30
+    emergencyAmountInstant = 0.5f;      // default: 1
+    emergencyAmountLongterm = 1.0f;     // default: 1.5
+    emergencyAmountRate = 0.25f;        // default: 0.25
+
 
     // KEEP HARDCODED (unless testing)
     batteryPercent = 100.0f;    // default: 100
@@ -44,6 +48,8 @@ void Device::decreaseBattery()
     if (batteryPercent == 0) {
         QMessageBox batteryWarnBox;
         batteryWarnBox.setText("Uh Oh! No more battery :( BYE BYE");
+        batteryWarnBox.setInformativeText("Critical Error: Device out of power. Triggering shutdown sequence. Saving information to log.txt");
+        // TODO: actually make it save crash data.
         batteryWarnBox.exec();
         QApplication::quit();
     }
@@ -66,9 +72,9 @@ void Device::tickBolus()
 {
     if (bolusBuffer >= bolusTransferRate) {
         bolusBuffer -= bolusTransferRate;
-        // TODO: send bolusTransferRate to user;
+        user->applyInsulin(bolusTransferRate);
     } else {
-        // TODO: send bolusBuffer to user;
+        user->applyInsulin(bolusBuffer);
         bolusBuffer = 0;
     }
 }
@@ -78,6 +84,7 @@ void Device::tick()
     if (bolusBuffer > 0) tickBolus();
     decreaseBattery();
     checkInsulinLevel();
+    checkEmergencyBolus();
 }
 
 void Device::checkInsulinLevel()
@@ -107,6 +114,25 @@ void Device::checkInsulinLevel()
     }
 }
 
+void Device::checkEmergencyBolus()
+{
+    if (user->getCurrentGlucoseLevel() > 10.0f) {
+        QMessageBox bolusWarnBox;
+        bolusWarnBox.setText("Warning! Glucose levels dangerously high!");
+        bolusWarnBox.setInformativeText("Administering emergency bolus");
+        bolusWarnBox.exec();
+
+        if (bolusBuffer > 0) return;
+        bool ok = startBolusPlan(emergencyAmountInstant, emergencyAmountLongterm, emergencyAmountRate);
+        if (!ok) {
+            QMessageBox bolusWarnBox;
+            bolusWarnBox.setText("Could not administer emergency bolus!");
+            bolusWarnBox.setInformativeText("Please resolve machine issue immediately.");
+            bolusWarnBox.exec();
+        }
+    }
+}
+
 void Device::cancel()
 {
     insulinOnBoard += bolusBuffer;
@@ -119,9 +145,9 @@ void Device::simulateBasal(){
     }
     float basalRate = selectedProfile->basalRate;
 
-    if(user->getCurrentGlucoseLevel()>=8.9f){
-        basalRate*=2;
-    }
+    if (user->getCurrentGlucoseLevel() < 3.9) basalRate = 0;
+    else if (user->getCurrentGlucoseLevel() < 6.25) basalRate *= 0.75;
+    else if (user->getCurrentGlucoseLevel() > 8.9) basalRate *= 0.75;
 
     if (insulinOnBoard<basalRate){
         checkInsulinLevel();
