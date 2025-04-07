@@ -6,3 +6,9 @@ Comp3004_Final_Project/*.pro.user
 *.DS_Store
 *pro.user
 Comp3004_Final_Project/Comp3004_Final_Project.pro.user
+.idea/modules.xml
+.idea/Team8InsulinPumpSimulator.iml
+.idea/vcs.xml
+build-Comp3004_Final_Project-Desktop-Debug/.idea/misc.xml
+build-Comp3004_Final_Project-Desktop-Debug/.idea/vcs.xml
+.idea/

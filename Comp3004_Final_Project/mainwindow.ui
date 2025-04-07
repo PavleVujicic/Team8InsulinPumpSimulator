@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="Page1">
      <widget class="QPushButton" name="createProfile">
@@ -53,7 +53,6 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -140,7 +139,6 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -416,7 +414,6 @@
        <font>
         <family>DejaVu Sans</family>
         <pointsize>20</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -505,7 +502,7 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Shape::NoFrame</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -573,7 +570,7 @@
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Shape::NoFrame</enum>
       </property>
       <widget class="QLabel" name="Glucose_tracker">
        <property name="geometry">
@@ -593,7 +590,7 @@
         <string>0.0</string>
        </property>
        <property name="textFormat">
-        <enum>Qt::PlainText</enum>
+        <enum>Qt::TextFormat::PlainText</enum>
        </property>
       </widget>
       <widget class="QLabel" name="label_11">
@@ -817,7 +814,6 @@
       <property name="font">
        <font>
         <pointsize>24</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -843,8 +839,11 @@
       <property name="sliderPosition">
        <number>2</number>
       </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
       <property name="tickPosition">
-       <enum>QSlider::NoTicks</enum>
+       <enum>QSlider::TickPosition::NoTicks</enum>
       </property>
       <property name="tickInterval">
        <number>1</number>
@@ -876,7 +875,6 @@
       </property>
       <property name="font">
        <font>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -895,7 +893,6 @@
       </property>
       <property name="font">
        <font>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -916,8 +913,7 @@
        <string>Back</string>
       </property>
       <property name="icon">
-       <iconset theme="QIcon::ThemeIcon::WindowClose">
-        <normaloff>.</normaloff>.</iconset>
+       <iconset theme="QIcon::ThemeIcon::WindowClose"/>
       </property>
      </widget>
      <widget class="QPushButton" name="btnBolusStart">
@@ -933,8 +929,7 @@
        <string>Start Bolus</string>
       </property>
       <property name="icon">
-       <iconset theme="QIcon::ThemeIcon::DocumentSend">
-        <normaloff>.</normaloff>.</iconset>
+       <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
       </property>
      </widget>
      <widget class="QLineEdit" name="txtBolusInstant">
@@ -949,7 +944,6 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -1061,7 +1055,7 @@
        </rect>
       </property>
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Orientation::Vertical</enum>
       </property>
      </widget>
      <widget class="QLabel" name="label_14">
@@ -1089,7 +1083,6 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -1135,7 +1128,6 @@
       <property name="font">
        <font>
         <pointsize>16</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -1254,7 +1246,7 @@
      </widget>
      <widget class="QPushButton" name="btnOptionsHistory">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -1270,7 +1262,7 @@
        </font>
       </property>
       <property name="text">
-       <string>History</string>
+       <string>Information</string>
       </property>
       <property name="checkable">
        <bool>false</bool>
@@ -1301,6 +1293,151 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="PageInfo">
+     <widget class="QPushButton" name="btnBack">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>80</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>321</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Recent Stats:</string>
+      </property>
+      <widget class="QLabel" name="label_30">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>51</y>
+         <width>121</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Highest Glucose:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_31">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>127</y>
+         <width>131</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Lowest Glucose:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_32">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>204</y>
+         <width>131</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Average Glucose:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_33">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>280</y>
+         <width>141</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Total Insulin Used:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblHighest">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>80</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblLowest">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>150</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblAverage">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>230</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblInsulinUsed">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>300</y>
+         <width>231</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btnPeriod">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>63</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>3 hours</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1309,7 +1446,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

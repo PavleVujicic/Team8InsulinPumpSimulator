@@ -48,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnScanGlucose, &QPushButton::clicked, this, &MainWindow::onBolusScan);
     connect(ui->btnStopBolus, &QPushButton::clicked, this, &MainWindow::onBolusStop);
 
+    connect(ui->btnOptionsHistory, &QPushButton::clicked, this, &MainWindow::onOptionsInfo);
+    connect(ui->btnPeriod, &QPushButton::clicked, this, &MainWindow::onInfoPeriod);
+    connect(ui->btnBack, &QPushButton::clicked, this, &MainWindow::onInfoBack);
 
     // Connect Keyboard Shorcuts
     QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+B"), this);
@@ -156,7 +159,7 @@ void MainWindow::update()
         ui->lblRemainingOnboard->setText((QString::number(std::floor(onboard)) + " units"));    // |
         ui->barOnBoard->setValue(std::floor(100.00 * onboard / 240.0f));                        // |
     }                                                                                           // |
-    ui->lblTime->setText(QString::number(secondsElapsed / 60) + ":" + QString::number(secondsElapsed * 10 % 60)); // Time
+    ui->lblTime->setText(QString::number(secondsElapsed / 6) + ":" + QString::number(secondsElapsed * 10 % 60)); // Time
 }
 
 
@@ -494,9 +497,13 @@ void MainWindow::on_EatFood_clicked()
 
 void MainWindow::onBolusClicked() {
     ui->stackedWidget->setCurrentWidget(ui->PageBolus);
+    updateTimer->stop();
+    hourlyBasalTimer->stop();
 }
 
 void MainWindow::onBolusCancel() {
+    updateTimer->start();
+    hourlyBasalTimer->start();
     // Go back
     ui->stackedWidget->setCurrentWidget(ui->page4);
     // Clear
@@ -608,6 +615,41 @@ void MainWindow::onOptionsHome()
 void MainWindow::onOptionsProfile()
 {
     ui->stackedWidget->setCurrentWidget(ui->Page1);
+}
+
+void MainWindow::onOptionsInfo()
+{
+    ui->stackedWidget->setCurrentWidget(ui->PageInfo);
+    //TODO: load information
+    int range = 0;
+    if (ui->btnPeriod->text() == "3 hours") {
+        range = 3 * 6;
+    } else if (ui->btnPeriod->text() == "24 hours") {
+        range = 24 * 6;
+    } else {
+        range = -1;
+    }
+    HistoryManager::Data d = device.getData(range);
+    ui->lblHighest->setText(QString().asprintf("%.2f", d.maxGlucose) + "mmol/L");
+    ui->lblLowest->setText(QString().asprintf("%.2f", d.minGlucose) + "mmol/L");
+    ui->lblAverage->setText(QString().asprintf("%.2f", d.averageGlucose) + "mmol/L");
+    ui->lblInsulinUsed->setText(QString().asprintf("%.2f", d.insulinUsed) + "units");
+}
+
+void MainWindow::onInfoBack() {
+    ui->stackedWidget->setCurrentWidget(ui->PageOptions);
+}
+
+void MainWindow::onInfoPeriod()
+{
+    if (ui->btnPeriod->text() == "3 hours") {
+        ui->btnPeriod->setText("24 hours");
+    } else if (ui->btnPeriod->text() == "24 hours") {
+        ui->btnPeriod->setText("MAX");
+    } else {
+        ui->btnPeriod->setText("3 hours");
+    }
+    onOptionsInfo();
 }
 
 void MainWindow::onFoodSliderChange()

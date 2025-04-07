@@ -11,7 +11,7 @@ Device::Device(){
     insulinOnBoard = 200.0f;            // default: 200
     insulinLowThreshhold = 20.0f;       // default: 20
     warnInterval = 30;                  // default: 30
-    emergencyAmountInstant = 0.5f;      // default: 1
+    emergencyAmountInstant = 0.75f;     // default: 1
     emergencyAmountLongterm = 1.0f;     // default: 1.5
     emergencyAmountRate = 0.25f;        // default: 0.25
 
@@ -62,9 +62,12 @@ bool Device::startBolusPlan(float immediateInsulin, float longtermInsulin, float
     if (diff < 0) return false; // Not enough insulin
     insulinOnBoard = diff;
 
-    // TODO: send immediateInsulin to user
+    user->applyInsulin(immediateInsulin);
+
     bolusBuffer = longtermInsulin;
     bolusTransferRate = bolusTransfer;
+
+    historyManager.addInsulinUse(step, immediateInsulin + longtermInsulin);
     return true;
 }
 
@@ -81,6 +84,7 @@ void Device::tickBolus()
 
 void Device::tick()
 {
+    historyManager.addDataPoint(++step, user->getCurrentGlucoseLevel());
     if (bolusBuffer > 0) tickBolus();
     decreaseBattery();
     checkInsulinLevel();
@@ -117,12 +121,12 @@ void Device::checkInsulinLevel()
 void Device::checkEmergencyBolus()
 {
     if (user->getCurrentGlucoseLevel() > 10.0f) {
+        if (bolusBuffer > 0) return;
         QMessageBox bolusWarnBox;
         bolusWarnBox.setText("Warning! Glucose levels dangerously high!");
         bolusWarnBox.setInformativeText("Administering emergency bolus");
         bolusWarnBox.exec();
 
-        if (bolusBuffer > 0) return;
         bool ok = startBolusPlan(emergencyAmountInstant, emergencyAmountLongterm, emergencyAmountRate);
         if (!ok) {
             QMessageBox bolusWarnBox;
@@ -155,6 +159,7 @@ void Device::simulateBasal(){
     std::cout<<"Deposit hourly basal: "<<basalRate<<" units"<<std::endl;
     insulinOnBoard-=basalRate;
     user->applyInsulin(basalRate);
+    historyManager.addInsulinUse(step, basalRate);
     //float effectOnGlucose = user->calculateInsulinEffect(basalRate);
 }
 

@@ -3,7 +3,7 @@
 
 #include "user.h"
 #include "profilemanager.h"
-
+#include "historymanager.h"
 class Device {
 public:
     Device();
@@ -58,9 +58,11 @@ public:
     void setUser(User*);
     void setSelectedProfile(Profile*);
 
+    inline HistoryManager::Data getData(int range) { return historyManager.getData(range); }
 private:
     User* user;
     Profile* selectedProfile;
+    HistoryManager historyManager;
 
     bool batteryWarned = false;
     int insulinWarn;
@@ -77,6 +79,8 @@ private:
     float emergencyAmountLongterm;
     float emergencyAmountRate;
     float basalRate;
+
+    int step = 0;
 };
 
 #endif // DEVICE_H

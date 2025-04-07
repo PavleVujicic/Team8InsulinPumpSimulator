@@ -14,13 +14,15 @@ SOURCES += \
     device.cpp \
     main.cpp \
     mainwindow.cpp \
-    profilemanager.cpp
+    profilemanager.cpp \
+    historymanager.cpp
 
 HEADERS += \
     user.h \
     device.h \
     mainwindow.h \
-    profilemanager.h
+    profilemanager.h \
+    historymanager.h
 
 FORMS += \
     mainwindow.ui

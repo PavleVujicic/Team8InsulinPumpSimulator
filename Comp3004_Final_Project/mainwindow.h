@@ -67,9 +67,11 @@ private slots:
     void onOptionsPress();
     void onOptionsHome();
     void onOptionsProfile();
+    void onOptionsInfo();
+    void onInfoBack();
+    void onInfoPeriod();
 
     void onFoodSliderChange();
-
     void basalDeposit();
 
     void onCtrlB();
