@@ -3,6 +3,6 @@ t:slim X2 Insulin Pump Simulator: This repository contains a C++ Qt framework pr
 
 ## IMPORTANT NOTE
 - This requires Qt Charts to compile, which is not included in the course VM.
-- Please ensure Qt Charts is installed when buuilding.
+- Please ensure Qt Charts is installed when building.
 - Linux distros (like the course VM) can install Qt Charts with: 
    - sudo apt-get install libqt5charts5-dev
