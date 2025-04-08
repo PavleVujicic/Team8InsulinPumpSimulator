@@ -12,21 +12,26 @@ t:slim X2 Insulin Pump Simulator: This repository contains a C++ Qt framework pr
 Files-
 Headers:
 	mainwindow.h
-   user.h
-   device.h
-   profilemanager.h
-   historymanager.h
+	user.h
+	device.h
+	profilemanager.h
+	historymanager.h
 	
 CPP:
 	mainwindow.cpp
 	main.cpp
-   user.cpp
-   device.cpp
-   profilemanager.cpp
-   historymanager.cpp
+	user.cpp
+	device.cpp
+	profilemanager.cpp
+	historymanager.cpp
 	
 QT Forms:
 	mainwindow.ui
 	
-Instructions:
-   
+Instructions:  
+1. Unzip the file
+2. Open .pro file in QT Creator
+3. Clean the project
+4. Build the project
+5. Run the project
+6. To run the simulation, press the START button after selecting a profile.
