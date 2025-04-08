@@ -11,7 +11,7 @@ Device::Device(){
     insulinOnBoard = 200.0f;            // default: 200
     insulinLowThreshhold = 20.0f;       // default: 20
     warnInterval = 30;                  // default: 30
-    emergencyAmountInstant = 0.75f;     // default: 1
+    emergencyAmountInstant = 0.5f;     // default: 1
     emergencyAmountLongterm = 1.0f;     // default: 1.5
     emergencyAmountRate = 0.25f;        // default: 0.25
 
