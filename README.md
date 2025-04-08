@@ -39,6 +39,8 @@ Instructions:
 5. Run the project
 6. To run the simulation, press the START button after selecting a profile.
 
+YouTube Video Link: https://www.youtube.com/watch?v=NRCWGWKIg7Q
+
 Work distribution:
 Shakil 
 -  user class
