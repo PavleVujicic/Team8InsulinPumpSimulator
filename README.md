@@ -10,6 +10,7 @@ t:slim X2 Insulin Pump Simulator: This repository contains a C++ Qt framework pr
    - sudo apt-get install libqt5charts5-dev
 
 Files-
+
 Headers:
 	mainwindow.h
 	user.h
